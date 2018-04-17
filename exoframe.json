@@ -1,0 +1,6 @@
+{
+  "name": "mercury-api",
+  "restart": "on-failure:2",
+  "project": "mercury",
+  "template": "docker-compose"
+}

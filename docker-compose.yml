@@ -1,29 +1,32 @@
 version: '3.5'
 services:
-  express_api:
-    container_name: express_api
+  mercury_express_api:
+    container_name: mercury_express_api
     build: .
-    image: express_api
+    image: mercury_express_api
     user: node
     working_dir: /home/node/app
+    labels:
+      traefik.backend: "mercury_express_api"
+      traefik.docker.network: "host"
+      traefik.frontend.rule: "Host:mercury-dev.api.chas.school"
     volumes:
       - ./:/home/node/app
-    ports:
-      - 7770:7770
     environment:
       - POSTGRES_HOST=database
     depends_on:
-      - database
+      - mercury_database
     env_file:
       - .env
-  database:
-    container_name: postgres_db
+  mercury_database:
+    container_name: mercury_postgres_db
     image: postgres:9.6
+    labels:
+      traefik.backend: "mercury_express_api"
+      traefik.docker.network: "host"
     volumes:
-      - database:/var/lib/postgresql/data
-    ports:
-      - 7772:5432
+      - mercury_database:/var/lib/postgresql/data
     env_file:
       - .env
 volumes:
-  database:
+  mercury_database:
