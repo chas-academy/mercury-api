@@ -13,7 +13,7 @@ services:
     volumes:
       - ./:/home/node/app
     environment:
-      - POSTGRES_HOST=database
+      - POSTGRES_HOST=mercury_database
     depends_on:
       - mercury_database
     env_file:
