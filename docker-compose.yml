@@ -9,7 +9,7 @@ services:
     labels:
       traefik.backend: "mercury_express_api"
       traefik.docker.network: "host"
-      traefik.frontend.rule: "Host:mercury-dev.api.chas.school"
+      traefik.frontend.rule: "Host:mercury-dev-api.chas.school"
     volumes:
       - ./:/home/node/app
     environment:
