@@ -8,7 +8,6 @@ services:
     working_dir: /home/node/app
     labels:
       traefik.backend: "API_CONTAINER_NAME"
-      traefik.docker.network: "host"
       traefik.frontend.rule: "Host:TRAEFIK_ENV.chas.school"
     volumes:
       - ./:/home/node/app
@@ -23,7 +22,6 @@ services:
     image: postgres:9.6
     labels:
       traefik.backend: "API_CONTAINER_NAME"
-      traefik.docker.network: "host"
     volumes:
       - DB_CONTAINER_NAME:/var/lib/postgresql/data
     env_file:
