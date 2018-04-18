@@ -3,5 +3,5 @@
   "restart": "on-failure:2",
   "project": "mercury-project",
   "domain": "mercury-dev-api.chas.school",
-  "template": "swarm"
+  "template": "compose"
 }
