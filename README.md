@@ -153,3 +153,40 @@ Use the following credentials to test different API responses. Default password 
 | Redirect User     | `redirect@email.com`   | When `redirect` is set with complete URL, e.i. `https://github.com/anthub-services`, user shall be redirected to external page if no location path (referrer) found on the Sign In page |
 | Blocked User      | `blocked@email.com`    | User is signed in but the account is blocked |
 | Unauthorized User | `<any invalid email>`  | Simply enter wrong `email` and/or `password` |
+
+## How to create migrations, models and seeds with as little bs as possible
+
+Use yarn and sequelize-cli to ensure everything is created uniformly.
+
+- Generate model
+
+`yarn sequelize model:generate --name ModelName --attributes firstAttribute:string,secondAttribute:string`
+
+This will create a model called ModelName and a corresponding migration-file.
+
+- Migrate
+
+`yarn sequelize db:migrate`
+
+This will create database-tables based on the migration-files.
+
+- Generate seed
+
+If you want to add demo-data to your new table, you need to make a seed.
+
+`yarn sequelize seed:generate --name demo-ModelName`
+
+- Seed database
+
+`yarn sequelize db:seed:all`
+
+This will seed all tables with their seeds. 
+The errors here are actually kind of helpful, so you should be able to figure it out if something went wrong.
+
+- Troubleshooting
+
+You can drop and re-create the database if you screwed up.
+
+`yarn sequelize db:drop`
+
+`yarn sequelize db:create`
