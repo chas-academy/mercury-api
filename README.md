@@ -160,7 +160,7 @@ Use yarn and sequelize-cli to ensure everything is created uniformly.
 
 - Generate model
 
-`yarn sequelize model:generate --name ModelName --attributes firstAttribute:string,secondAttribute:string`
+`yarn sequelize model:generate --name ModelName --attributes firstAttribute:string,secondAttribute:integer`
 
 This will create a model called ModelName and a corresponding migration-file.
 
@@ -174,14 +174,13 @@ This will create database-tables based on the migration-files.
 
 If you want to add demo-data to your new table, you need to make a seed.
 
-`yarn sequelize seed:generate --name demo-ModelName`
+`yarn sequelize seed:generate --name ModelNames`
 
 - Seed database
 
 `yarn sequelize db:seed:all`
 
 This will seed all tables with their seeds. 
-The errors here are actually kind of helpful, so you should be able to figure it out if something went wrong.
 
 - Troubleshooting
 
