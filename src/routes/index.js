@@ -29,12 +29,15 @@ export default (app) => {
 
   /* Canonical Items */
   app.get('/canonical', C.CanonicalItems.list);
-  // TODO: Add logic to the following routes
-  // app.post('/canonical/', C.CanonicalItems.create);
-  // app.get('/canonical/:id', C.CanonicalItems.find);
-  // app.put('/canonical/:id', C.CanonicalItems.update);
-  // app.delete('/canonical/:id', C.CanonicalItems.destroy);
+  app.post('/canonical/', C.CanonicalItems.create);
+  app.get('/canonical/:id', C.CanonicalItems.find);
+  app.put('/canonical/:id', C.CanonicalItems.update);
+  app.delete('/canonical/:id', C.CanonicalItems.destroy);
 
-  // TODO: Add routes and logic for Items
+  /* Items */
   app.get('/items', C.Items.list);
+  app.post('/items/', C.Items.create);
+  app.get('/items/:id', C.Items.find);
+  app.put('/items/:id', C.Items.update);
+  app.delete('/items/:id', C.Items.destroy);
 }
