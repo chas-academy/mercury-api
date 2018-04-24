@@ -40,4 +40,7 @@ export default (app) => {
   app.get('/items/:id', C.Items.find);
   app.put('/items/:id', C.Items.update);
   app.delete('/items/:id', C.Items.destroy);
+
+  /* Test get items with associations */
+  app.get('/assoc', C.Assoc.list);
 }

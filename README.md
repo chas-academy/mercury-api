@@ -189,3 +189,11 @@ You can drop and re-create the database if you screwed up.
 `yarn sequelize db:drop`
 
 `yarn sequelize db:create`
+
+## Other stuff
+
+Here are some helpful tutorials to consider reading.
+
+(https://lorenstewart.me/2016/10/03/sequelize-crud-101/)
+(https://lorenstewart.me/2016/10/16/sequelize-crud-102/)
+(https://lorenstewart.me/2016/09/12/sequelize-table-associations-joins/)

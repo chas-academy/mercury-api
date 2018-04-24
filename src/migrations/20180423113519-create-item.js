@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Items', {
-      id: {
+      itemId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -16,6 +16,9 @@ module.exports = {
       },
       auto: {
         type: Sequelize.BOOLEAN
+      },
+      canonicalId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

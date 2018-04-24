@@ -34,7 +34,7 @@ export default {
             id: req.params.id
         })
     },
-    
+
     destroy(req, res) {
         db.CanonicalItem.destroy({
             res,
