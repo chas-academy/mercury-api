@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  var Item = sequelize.define('Item', {
+export default (sequelize, DataTypes) => {
+  const Item = sequelize.define('Item', {
     itemId: {
       type: DataTypes.INTEGER,
       primaryKey: true
@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     Item.belongsTo(models.CanonicalItem, {
       as: 'CanonicalItem',
       foreignKey: 'canonicalId'
-    })
-  }
+    });
+  };
 
   return Item;
-};
+}

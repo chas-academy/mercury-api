@@ -1,6 +1,6 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  var CanonicalItem = sequelize.define('CanonicalItem', {
+export default (sequelize, DataTypes) => {
+  const CanonicalItem = sequelize.define('CanonicalItem', {
     canonicalId: {
       type: DataTypes.INTEGER,
       primaryKey: true
@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     CanonicalItem.hasMany(models.Item, {
       as: 'Items',
       foreignKey: 'itemId'
-    })
-  }
+    });
+  };
 
   return CanonicalItem;
-};
+}
