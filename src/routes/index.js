@@ -3,7 +3,7 @@ import C from '../controllers'
 
 export default (app) => {
   app.get('/', (req, res) => res.status(200).send({
-    message: 'Hello from dev! I got updated'
+    message: 'Hello from 3-items! I will be updated to include items for testing :)'
   }))
 
   /* Sessions */
@@ -26,4 +26,21 @@ export default (app) => {
   app.patch('/tests/:id', C.Tests.update)
   app.put('/tests/:id', C.Tests.update)
   app.delete('/tests/:id', C.Tests.destroy)
+
+  /* Canonical Items */
+  app.get('/canonical', C.CanonicalItems.list);
+  app.post('/canonical/', C.CanonicalItems.create);
+  app.get('/canonical/:id', C.CanonicalItems.find);
+  app.put('/canonical/:id', C.CanonicalItems.update);
+  app.delete('/canonical/:id', C.CanonicalItems.destroy);
+
+  /* Items */
+  app.get('/items', C.Items.list);
+  app.post('/items/', C.Items.create);
+  app.get('/items/:id', C.Items.find);
+  app.put('/items/:id', C.Items.update);
+  app.delete('/items/:id', C.Items.destroy);
+
+  /* Test get items with associations */
+  app.get('/assoc', C.Assoc.list);
 }
