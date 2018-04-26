@@ -3,7 +3,7 @@ import C from '../controllers'
 
 export default (app) => {
   app.get('/', (req, res) => res.status(200).send({
-    message: 'Hello from 3-items! I will be updated to include items for testing :)'
+    message: 'Hello from 16-test_dependencies! I will be updated to include the dependencies required for testing :)'
   }))
 
   /* Sessions */
