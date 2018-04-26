@@ -1,29 +1,42 @@
 version: '3.5'
+
 services:
-  mercury_express_api:
-    container_name: mercury_express_api
-    build: .
-    image: mercury_express_api
-    user: node
-    working_dir: /home/node/app
-    volumes:
-      - ./:/home/node/app
+  mercury_api_dev:
+    image: ludlun/mercury-api-dev:latest
+    working_dir: /app
+    command: node dist/server.js
     environment:
-      - POSTGRES_HOST=mercury_database
+      - POSTGRES_HOST=mercury_db_dev
     depends_on:
-      - mercury_database
+      - mercury_db_dev
     env_file:
       - .env
+    networks:
+      - traefik
+    deploy:
+      labels:
+        traefik.port: '7770'
+        traefik.backend: 'mercury_api_dev'
+        traefik.docker.network: 'traefik'
+        traefik.frontend.rule: 'Host:mercury-api-dev.lndgrn.xyz'
     ports:
-      - 7770:7770
-  mercury_database:
-    container_name: mercury_postgres_db
-    image: postgres:9.6
+      - '7770:7770'
+  mercury_db_dev:
+    image: 'postgres:9.6'
     volumes:
-      - mercury_database:/var/lib/postgresql/data
+      - 'mercury_db_dev:/var/lib/postgresql/data'
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - '5432:5432'
+    networks:
+      - traefik
+    deploy:
+      labels:
+        traefik.docker.network: traefik
 volumes:
-  mercury_database:
+  mercury_db_dev:
+
+networks:
+  traefik:
+    external: true
