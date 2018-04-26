@@ -3,7 +3,7 @@ import C from '../controllers'
 
 export default (app) => {
   app.get('/', (req, res) => res.status(200).send({
-    message: 'Hello from 16-test_dependencies! I will be updated to include the dependencies required for testing :)'
+    message: 'Hello from new docker swarm!! Feels guuud!'
   }))
 
   /* Sessions */
