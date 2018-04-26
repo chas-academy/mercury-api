@@ -1,14 +1,14 @@
 version: '3.5'
 
 services:
-  mercury_api_dev:
+  api:
     image: ludlun/mercury-api-dev:latest
     working_dir: /app
     command: node dist/server.js
     environment:
-      - POSTGRES_HOST=mercury_db_dev
+      - POSTGRES_HOST=database
     depends_on:
-      - mercury_db_dev
+      - database
     env_file:
       - .env
     networks:
@@ -21,10 +21,10 @@ services:
         traefik.frontend.rule: 'Host:mercury-api-dev.lndgrn.xyz'
     ports:
       - '7770:7770'
-  mercury_db_dev:
+  database:
     image: 'postgres:9.6'
     volumes:
-      - 'mercury_db_dev:/var/lib/postgresql/data'
+      - 'database:/var/lib/postgresql/data'
     env_file:
       - .env
     ports:
@@ -35,7 +35,7 @@ services:
       labels:
         traefik.docker.network: traefik
 volumes:
-  mercury_db_dev:
+  database:
 
 networks:
   traefik:
