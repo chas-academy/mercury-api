@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  mercury_express_api:
+    container_name: mercury_express_api
+    build: .
+    image: mercury_express_api
+    user: node
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    environment:
+      - POSTGRES_HOST=mercury_database
+    depends_on:
+      - mercury_database
+    env_file:
+      - .env
+    ports:
+      - 7770:7770
+  mercury_database:
+    container_name: mercury_postgres_db
+    image: postgres:9.6
+    volumes:
+      - mercury_database:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+volumes:
+  mercury_database:
