@@ -19,8 +19,6 @@ services:
         traefik.backend: 'mercury_api_dev'
         traefik.docker.network: 'traefik'
         traefik.frontend.rule: 'Host:mercury-api-dev.lndgrn.xyz'
-    ports:
-      - '7770:7770'
   database:
     image: 'postgres:9.6'
     volumes:
