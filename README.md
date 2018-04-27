@@ -1,11 +1,13 @@
-# API Boilerplate
-This is the API boilerplate which will get you started. For any questions regarding the stack, please use our [#help](https://chasacademy.slack.com/messages/C61J8A678/#help) channel in Slack.
+# Mercury API
 
 Table of contents
 =================
 
 <!--ts-->
    * [Directory Layout](#directory-layout)
+   * [API Structure](#API-Structure)
+        * [Index of Endpoints](#index-of-endpoints)
+            * [Individual Resource Endpoints](#Individual-Resource-Endpoints)
    * [Quickstart](#quickstart)
    * [Usage](#usage)
       * [Docker](#docker)
@@ -33,7 +35,63 @@ Table of contents
 ├── Dockerfile              # Defines how Docker should build a custom image for the application, do not touch unless you know what you are doing
 └── README.md               # The file you are reading right now
 ```
+# API Structure
 
+Our api confirms to the [{json:api}](http://jsonapi.org) specification.
+[_Intro from JSON API docs_:](http://jsonapi.org/format/#introduction)
+> JSON API is a specification for how a client should request that resources be fetched or modified, and how a server should respond to those requests. 
+>
+> JSON API is designed to minimize both the number of requests and the amount of data transmitted between clients and servers. This efficiency is achieved without compromising readability, flexibility, or discoverability.
+
+## Index of Endpoints
+-----------------------------------
+**Resource collections**
+- `/users`
+- `/metausers`
+- `/items`
+- `/canonicalitems`
+
+**Individual resources**
+- `/users/:id`
+- `/metausers/:id`
+- `/items/:id`
+- `/canonicalitems/:id`
+-------------------------------------------
+### Individual Resource Endpoints
+--------------------------------
+**`/items/:id`**
+**Response with status 200 OK to a GET request to an individual item:**
+```json
+{
+  "data": { 
+    "id": "number",
+    "type": "items",
+    "attributes": {
+      "name": "string",
+      "goal": "number",
+      "delimiter": "number",
+      "price": "number",
+      "auto": "boolean"
+    },
+    "relationships": {
+      "owner": {
+        "links": {
+          "related": "http://example.com/items/:id/owner"
+        }
+      },
+      "canonicalitems": {
+        "links": {
+          "related": "http://example.com/items/:id/canonicalitem"
+        }
+      }
+    },
+    "links": {
+      "self": "http://example.com/items/:id"
+    }
+  }
+}
+```
+------------------------------------------------------
 ## Quickstart
 It's best if this is started from the project root instead of inside the api repo, but if for some reason you want to work on the API independently you can run the project from this location. Here's how to do that:
 
