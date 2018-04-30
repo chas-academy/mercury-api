@@ -8,13 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      goalDelimiter: {
+      delimiter: {
         type: Sequelize.INTEGER
       },
       goalType: {
         type: Sequelize.STRING
       },
       auto: {
+        type: Sequelize.BOOLEAN
+      },
+      completed: {
         type: Sequelize.BOOLEAN
       },
       canonicalId: {

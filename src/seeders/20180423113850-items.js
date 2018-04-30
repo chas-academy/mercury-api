@@ -39,11 +39,11 @@ module.exports = {
   //   }
   // ])
   return Promise.all([
-    associateWithCanonical(queryInterface, 42, 'n/a', 1),
-    associateWithCanonical(queryInterface, 42, 'n/a', 1),
-    associateWithCanonical(queryInterface, 42, 'n/a', 2),
-    associateWithCanonical(queryInterface, 42, 'n/a', 2),
-    associateWithCanonical(queryInterface, 42, 'n/a', 2)
+    associateWithCanonical(queryInterface, 42, 'n/a', false, false, 1),
+    associateWithCanonical(queryInterface, 42, 'n/a', false, false, 1),
+    associateWithCanonical(queryInterface, 42, 'n/a', false, false, 2),
+    associateWithCanonical(queryInterface, 42, 'n/a', false, false, 2),
+    associateWithCanonical(queryInterface, 42, 'n/a', false, false, 2)
   ])
   .then(promises => {
     return queryInterface.bulkInsert('Items', promises, {})
@@ -56,7 +56,7 @@ module.exports = {
 
 };
 
-function associateWithCanonical(queryInterface, goalDelimiter, goalType, canonicalId) {
+function associateWithCanonical(queryInterface, delimiter, goalType, auto, completed, canonicalId) {
   return queryInterface
   .rawSelect('CanonicalItems', {
     where: { canonicalId }
@@ -67,8 +67,10 @@ function associateWithCanonical(queryInterface, goalDelimiter, goalType, canonic
     console.log('[Associating Items]', canonicalId)
 
     return {
-      goalDelimiter,
+      delimiter,
       goalType,
+      auto,
+      completed,
       canonicalId,
       createdAt: date,
       updatedAt: date
