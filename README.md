@@ -1,22 +1,21 @@
 # Mercury API
 
-Table of contents
-=================
+# Table of contents
 
 <!--ts-->
-   * [Directory Layout](#directory-layout)
-   * [API Structure](#API-Structure)
-        * [Index of Endpoints](#index-of-endpoints)
-            * [Individual Resource Endpoints](#Individual-Resource-Endpoints)
-   * [Quickstart](#quickstart)
-   * [Usage](#usage)
-      * [Docker](#docker)
-      * [Bash Commands](#bash-commands)
-      * [Database](#database)
-      * [Users](#users)
-<!--te-->
+
+* [Directory Layout](#directory-layout)
+* [Index of Endpoints](#index-of-endpoints)
+* [Quickstart](#quickstart)
+* [Usage](#usage)
+   * [Docker](#docker)
+   * [Bash Commands](#bash-commands)
+   * [Database](#database)
+   * [Users](#users)
+  <!--te-->
 
 ## Directory Layout
+
 ```bash
 ./
 ├── /src                    # Directory for the api code, a standard express app using Postgres as database
@@ -35,64 +34,120 @@ Table of contents
 ├── Dockerfile              # Defines how Docker should build a custom image for the application, do not touch unless you know what you are doing
 └── README.md               # The file you are reading right now
 ```
-# API Structure
-
-Our api confirms to the [{json:api}](http://jsonapi.org) specification.
-[_Intro from JSON API docs_:](http://jsonapi.org/format/#introduction)
-> JSON API is a specification for how a client should request that resources be fetched or modified, and how a server should respond to those requests. 
->
-> JSON API is designed to minimize both the number of requests and the amount of data transmitted between clients and servers. This efficiency is achieved without compromising readability, flexibility, or discoverability.
 
 ## Index of Endpoints
------------------------------------
-**Resource collections**
-- `/users`
-- `/metausers`
-- `/items`
-- `/canonicalitems`
+| Endpoint 						| HTTP verb 	| Action 								|
+----------------------|---------|-------------------------|
+|	`/api/users`	|	`GET`	|	Read all users	
+|	`/api/users` | `POST`	| Create an user
+|	`/api/users/:userId`	|	`GET`| Read a specific user |
+| `/api/users/:userId`		|	`PUT`	| Update a specific user
+|	`/api/users/:userId` 	|	`DELETE`	| Delete a specific user		
+| `/api/users/:userId/items`  | `GET` | Read an user's items |  
+| `/api/users/:userId/items/:itemId` | `GET` | Read an user's 
 
-**Individual resources**
-- `/users/:id`
-- `/metausers/:id`
-- `/items/:id`
-- `/canonicalitems/:id`
--------------------------------------------
-### Individual Resource Endpoints
---------------------------------
-**`/items/:id`**
-**Response with status 200 OK to a GET request to an individual item:**
+
+
+### Structure of HTTP bodies
+Examples of what HTTP bodies should look like in responses and POST requests (_in json format_): 
+
+#### Create an item resource
+`POST` --> `/api/users/:userId/items`
 ```json
 {
-  "data": { 
-    "id": "number",
-    "type": "items",
+  "data": {
+    "type": "item",
     "attributes": {
       "name": "string",
       "goal": "number",
       "delimiter": "number",
       "price": "number",
-      "auto": "boolean"
-    },
-    "relationships": {
-      "owner": {
-        "links": {
-          "related": "http://example.com/items/:id/owner"
-        }
-      },
-      "canonicalitems": {
-        "links": {
-          "related": "http://example.com/items/:id/canonicalitem"
-        }
-      }
-    },
-    "links": {
-      "self": "http://example.com/items/:id"
+      "auto": "boolean",
+      "completed": "boolean",
+      "icon": "string",
+      "createdAt": "180427",
+      "updatedAt": "180428"
     }
   }
 }
 ```
-------------------------------------------------------
+-----------------
+Note: Responses to requests concerning `items` returns data in an array, even if it only contains one `item` resource:
+`
+{
+	"data": [ ... ]
+}
+`
+### All of an user's items
+
+Response with **status 200** to `GET` --> `/api/users/:userId/items`
+
+```json
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "item",
+      "attributes": {
+        "name": "iPhone X",
+        "goal": "1000",
+        "delimiter": "400",
+        "price": "9999",
+        "auto": "true",
+        "icon": "smartphone",
+        "completed": "false",
+        "createdAt": "180427",
+        "updatedAt": "180428"
+      }
+    },
+    {
+      "id": "2",
+      "type": "item",
+      "attributes": {
+        "name": "MacBook Pro",
+        "goal": "10000",
+        "delimiter": "600",
+        "price": "18999",
+        "auto": "true",
+        "icon": "laptop",
+        "completed": "false",
+        "createdAt": "180427",
+        "updatedAt": "180428"
+      }
+    }
+  ]
+}
+```
+
+### An user's item by id
+Response with **status 200** to `GET` --> `/api/users/:userId/items/:itemId`
+
+```json
+{
+  "data": [
+    {
+      "id": "number",
+      "type": "item",
+      "attributes": {
+        "name": "string",
+        "goal": "number",
+        "delimiter": "number",
+        "price": "number",
+        "auto": "boolean",
+        "icon": "string",
+        "completed": "boolean",
+        "createdAt": "180427",
+        "updatedAt": "180428"
+      }  
+    }
+  ]
+}
+```
+
+---
+
 ## Quickstart
+
 It's best if this is started from the project root instead of inside the api repo, but if for some reason you want to work on the API independently you can run the project from this location. Here's how to do that:
 
 Note: Only change the environment variables for `POSTGRES_USER` and `POSTGRES_PASSWORD` if working on local machine.
@@ -171,7 +226,7 @@ To manage separate Docker instance for API, open another terminal console and ru
 ### Docker
 
 | Command                                | Description                                                        |
-|----------------------------------------|--------------------------------------------------------------------|
+| -------------------------------------- | ------------------------------------------------------------------ |
 | `./bin/install`                        | Build the Docker containers, initialise database and start the app |
 | `./bin/reinstall`                      | Re-build containers, re-initialise database and start the app      |
 | `./bin/start`                          | Start all the services (API and database)                          |
@@ -182,65 +237,65 @@ To manage separate Docker instance for API, open another terminal console and ru
 
 **Local**
 
-| Command                               | Description                                                |
-|---------------------------------------|------------------------------------------------------------|
-| `./bin/pg/local/start`                | Start the PostgreSQL server (for Mac users only)           |
-| `./bin/pg/local/resetdb`              | Drop and re-initialise database                            |
-| `./bin/pg/local/migrate`              | Run new schema migration                                   |
-| `./bin/pg/local/migrateundo`          | Revert the recent schema migration                         |
-| `./bin/pg/local/seed <seed file>`     | Run specific data seed file with or without .js extension  |
-| `./bin/pg/local/seedundo <seed file>` | Revert the seed of specific data seed file                 |
-| `./bin/pg/local/psql`                 | Access the database console                                |
+| Command                               | Description                                               |
+| ------------------------------------- | --------------------------------------------------------- |
+| `./bin/pg/local/start`                | Start the PostgreSQL server (for Mac users only)          |
+| `./bin/pg/local/resetdb`              | Drop and re-initialise database                           |
+| `./bin/pg/local/migrate`              | Run new schema migration                                  |
+| `./bin/pg/local/migrateundo`          | Revert the recent schema migration                        |
+| `./bin/pg/local/seed <seed file>`     | Run specific data seed file with or without .js extension |
+| `./bin/pg/local/seedundo <seed file>` | Revert the seed of specific data seed file                |
+| `./bin/pg/local/psql`                 | Access the database console                               |
 
 **Docker**
 
-- To run the commands for Docker database service, simply remove the `local` from the command
-- The `start` command works only in local machine
-- Used `./bin/pg/psql <database container ID or Name>` to access the database console
+* To run the commands for Docker database service, simply remove the `local` from the command
+* The `start` command works only in local machine
+* Used `./bin/pg/psql <database container ID or Name>` to access the database console
 
 ## Users
 
 Use the following credentials to test different API responses. Default password for all accounts is `password`.
 
-| Name              | Email                  | Description |
-|-------------------|------------------------|-------------|
-| Super Admin User  | `superadmin@email.com` | Has wildcard access |
-| Admin User        | `admin@email.com`      | Has wildcard access but `Admin › Users › Delete` is excluded |
-| Common User       | `user@email.com`       | Can access `My Profile`, `Admin › Dashboard`, `Users`, `Users › View, and Settings` |
-| Referrer User     | `referrer@email.com`   | When `redirect` is set without the domain, e.i. `/admin/dashboard`, user shall be redirected to internal page if no location path (referrer) found on the Sign In page |
+| Name              | Email                  | Description                                                                                                                                                                             |
+| ----------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Super Admin User  | `superadmin@email.com` | Has wildcard access                                                                                                                                                                     |
+| Admin User        | `admin@email.com`      | Has wildcard access but `Admin › Users › Delete` is excluded                                                                                                                            |
+| Common User       | `user@email.com`       | Can access `My Profile`, `Admin › Dashboard`, `Users`, `Users › View, and Settings`                                                                                                     |
+| Referrer User     | `referrer@email.com`   | When `redirect` is set without the domain, e.i. `/admin/dashboard`, user shall be redirected to internal page if no location path (referrer) found on the Sign In page                  |
 | Redirect User     | `redirect@email.com`   | When `redirect` is set with complete URL, e.i. `https://github.com/anthub-services`, user shall be redirected to external page if no location path (referrer) found on the Sign In page |
-| Blocked User      | `blocked@email.com`    | User is signed in but the account is blocked |
-| Unauthorized User | `<any invalid email>`  | Simply enter wrong `email` and/or `password` |
+| Blocked User      | `blocked@email.com`    | User is signed in but the account is blocked                                                                                                                                            |
+| Unauthorized User | `<any invalid email>`  | Simply enter wrong `email` and/or `password`                                                                                                                                            |
 
 ## How to create migrations, models and seeds with as little bs as possible
 
 Use yarn and sequelize-cli to ensure everything is created uniformly.
 
-- Generate model
+* Generate model
 
 `yarn sequelize model:generate --name ModelName --attributes firstAttribute:string,secondAttribute:integer`
 
 This will create a model called ModelName and a corresponding migration-file.
 
-- Migrate
+* Migrate
 
 `yarn sequelize db:migrate`
 
 This will create database-tables based on the migration-files.
 
-- Generate seed
+* Generate seed
 
 If you want to add demo-data to your new table, you need to make a seed.
 
 `yarn sequelize seed:generate --name ModelNames`
 
-- Seed database
+* Seed database
 
 `yarn sequelize db:seed:all`
 
-This will seed all tables with their seeds. 
+This will seed all tables with their seeds.
 
-- Troubleshooting
+* Troubleshooting
 
 You can drop and re-create the database if you screwed up.
 
