@@ -6,9 +6,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    goalDelimiter: DataTypes.INTEGER,
+    delimiter: DataTypes.INTEGER,
     goalType: DataTypes.STRING,
     auto: DataTypes.BOOLEAN,
+    completed: DataTypes.BOOLEAN,
     canonicalId: DataTypes.INTEGER
   });
 
