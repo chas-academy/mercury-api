@@ -35,6 +35,11 @@ export default (sequelize, DataTypes) => {
       as: 'Sessions',
       foreignKey: 'userId'
     })
+
+    User.hasOne(models.UserMeta, {
+      as: 'UserMeta',
+      foreignKey: 'userId'
+    })
   }
 
   return User
