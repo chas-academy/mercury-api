@@ -69,9 +69,9 @@ function associateWithCanonical(
       where: { canonicalId }
     }, ['canonicalId'])
     .then(canonicalId => {
-      const date = new Date()
+      const date = new Date();
 
-      console.log('[Associating Items]', canonicalId)
+      console.log('[Associating Items]', canonicalId);
 
       return {
         delimiter,
