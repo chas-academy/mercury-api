@@ -12,8 +12,14 @@ module.exports = {
       delimiter: {
         type: Sequelize.INTEGER
       },
+      goal: {
+        type: Sequelize.INTEGER
+      },
       goalType: {
         type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.INTEGER
       },
       auto: {
         type: Sequelize.BOOLEAN

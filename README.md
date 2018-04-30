@@ -55,19 +55,21 @@ Examples of what HTTP bodies should look like in responses and POST requests (_i
 `POST` --> `/api/users/:userId/items`
 ```json
 {
-  "data": {
+  { "id": 3,
     "type": "item",
     "attributes": {
-      "name": "string",
-      "goal": "number",
-      "delimiter": "number",
-      "price": "number",
-      "auto": "boolean",
-      "completed": "boolean",
-      "icon": "string",
-      "createdAt": "180427",
-      "updatedAt": "180428"
-    }
+        "name": "string", // from canonicalId --> CannonicalItem
+        "goal": 3000 , // number
+        "goalType": "string",
+        "delimiter": 5, // number
+        "price": 5000, // number
+        "auto": false , // boolean
+        "icon": "string", // from canonicalId --> CannonicalItem
+        "completed": false, // boolean
+        "canonicalId": 3, // number
+        "createdAt": "2018-04-30T10:37:56.014Z",
+        "updatedAt": "2018-04-30T10:37:56.014Z"
+    }  
   }
 }
 ```
@@ -86,34 +88,38 @@ Response with **status 200** to `GET` --> `/api/users/:userId/items`
 {
   "data": [
     {
-      "id": "1",
-      "type": "item",
+      "id": 1, // number
+      "type": "item", //string
       "attributes": {
-        "name": "iPhone X",
-        "goal": "1000",
-        "delimiter": "400",
-        "price": "9999",
-        "auto": "true",
-        "icon": "smartphone",
-        "completed": "false",
-        "createdAt": "180427",
-        "updatedAt": "180428"
-      }
+        "name": "string", // from canonicalId --> CannonicalItem
+        "goal": 1000 , // number
+        "goalType": "string",
+        "delimiter": 1, // number
+        "price": 2000, // number
+        "auto": true , // boolean
+        "icon": "string", // from canonicalId --> CannonicalItem
+        "completed": false, // boolean
+        "canonicalId": 2, // number
+        "createdAt": "2018-04-30T10:37:56.014Z",
+        "updatedAt": "2018-04-30T10:37:56.014Z"
+      }  
     },
     {
-      "id": "2",
-      "type": "item",
+      "id": 2, // number
+      "type": "item", //string
       "attributes": {
-        "name": "MacBook Pro",
-        "goal": "10000",
-        "delimiter": "600",
-        "price": "18999",
-        "auto": "true",
-        "icon": "laptop",
-        "completed": "false",
-        "createdAt": "180427",
-        "updatedAt": "180428"
-      }
+        "name": "string", // from canonicalId --> CannonicalItem
+        "goal": 3000 , // number
+        "goalType": "string",
+        "delimiter": 5, // number
+        "price": 5000, // number
+        "auto": false , // boolean
+        "icon": "string", // from canonicalId --> CannonicalItem
+        "completed": false, // boolean
+        "canonicalId": 3, // number
+        "createdAt": "2018-04-30T10:37:56.014Z",
+        "updatedAt": "2018-04-30T10:37:56.014Z"
+      }  
     }
   ]
 }
@@ -126,18 +132,20 @@ Response with **status 200** to `GET` --> `/api/users/:userId/items/:itemId`
 {
   "data": [
     {
-      "id": "number",
-      "type": "item",
+      "id": 1, // number
+      "type": "item", //string
       "attributes": {
-        "name": "string",
-        "goal": "number",
-        "delimiter": "number",
-        "price": "number",
-        "auto": "boolean",
-        "icon": "string",
-        "completed": "boolean",
-        "createdAt": "180427",
-        "updatedAt": "180428"
+        "name": "string", // from canonicalId --> CannonicalItem
+        "goal": 1000 , // number
+        "goalType": "string",
+        "delimiter": 1, // number
+        "price": 2000, // number
+        "auto": true , // boolean
+        "icon": "string", // from canonicalId --> CannonicalItem
+        "completed": false, // boolean
+        "canonicalId": 2, // number
+        "createdAt": "2018-04-30T10:37:56.014Z",
+        "updatedAt": "2018-04-30T10:37:56.014Z"
       }  
     }
   ]

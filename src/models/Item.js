@@ -7,7 +7,9 @@ export default (sequelize, DataTypes) => {
       primaryKey: true
     },
     delimiter: DataTypes.INTEGER,
+    goal: DataTypes.INTEGER,
     goalType: DataTypes.STRING,
+    price: DataTypes.INTEGER,
     auto: DataTypes.BOOLEAN,
     completed: DataTypes.BOOLEAN,
     canonicalId: DataTypes.INTEGER,
