@@ -1,5 +1,3 @@
-import { RSA_X931_PADDING } from "constants";
-
 'use strict';
 
 module.exports = {
@@ -17,13 +15,13 @@ module.exports = {
       updatedAt: new Date().toLocaleString()
     },
     {
-      name: 'Apple Mac Book Pro 13\" Touchbar',
+      name: 'Apple Mac Book Pro 13 Touchbar',
       icon: 'macbook',
       createdAt: new Date().toLocaleString(),
       updatedAt: new Date().toLocaleString()
     },
     {
-      name: 'Lenovo Thinkpad 13\"',
+      name: 'Lenovo Thinkpad 13',
       icon: 'laptop',
       createdAt: new Date().toLocaleString(),
       updatedAt: new Date().toLocaleString()
@@ -83,7 +81,7 @@ module.exports = {
       updatedAt: new Date().toLocaleString()
     },
     {
-      name: 'KitchenAid Artisan Köksmaskin 4,8 L ',
+      name: 'KitchenAid Artisan Koksmaskin 4,8 L',
       icon: 'cooking',
       createdAt: new Date().toLocaleString(),
       updatedAt: new Date().toLocaleString()
@@ -113,12 +111,11 @@ module.exports = {
       updatedAt: new Date().toLocaleString()
     },
     {
-      name: 'Apple iPad Pro 10.5\" 256GB Wifi Space Gray',
+      name: 'Apple iPad Pro 10.5 256GB Wifi Space Gray',
       icon: 'ipad',
       createdAt: new Date().toLocaleString(),
       updatedAt: new Date().toLocaleString()
-    },
-
+    }
     ], {});
   },
 
@@ -126,9 +123,3 @@ module.exports = {
     return queryInterface.bulkDelete('CanonicalItems', null, {});
   }
 };
-
-
-
-
-
-
