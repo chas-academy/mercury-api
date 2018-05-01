@@ -2,92 +2,83 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    //   return queryInterface.bulkInsert('Items', [{
-    //     goalDelimiter: 42,
-    //     goalType: 'n/a',
-    //     auto: false,
-    //     createdAt: new Date().toLocaleString(),
-    //     updatedAt: new Date().toLocaleString()
-    //   },
-    //   {
-    //     goalDelimiter: 42,
-    //     goalType: 'n/a',
-    //     auto: false,
-    //     createdAt: new Date().toLocaleString(),
-    //     updatedAt: new Date().toLocaleString()
-    //   },
-    //   {
-    //     goalDelimiter: 42,
-    //     goalType: 'n/a',
-    //     auto: false,
-    //     createdAt: new Date().toLocaleString(),
-    //     updatedAt: new Date().toLocaleString()
-    //   },
-    //   {
-    //     goalDelimiter: 42,
-    //     goalType: 'n/a',
-    //     auto: false,
-    //     createdAt: new Date().toLocaleString(),
-    //     updatedAt: new Date().toLocaleString()
-    //   },
-    //   {
-    //     goalDelimiter: 42,
-    //     goalType: 'n/a',
-    //     auto: false,
-    //     createdAt: new Date().toLocaleString(),
-    //     updatedAt: new Date().toLocaleString()
-    //   }
-    // ])
     return Promise.all([
       associateWithCanonical(
         queryInterface,
         10,
-        50,
-        "n/a",
+        1900,
+        "days of use",
         32099,
         false,
         false,
-        1
+        1,
+        2
       ),
       associateWithCanonical(
         queryInterface,
         42,
-        100,
-        "n/a",
+        1800,
+        "days of use",
         20199,
         false,
         false,
-        1
+        2,
+        2
       ),
       associateWithCanonical(
         queryInterface,
         30,
-        360,
-        "n/a",
+        3600,
+        "days of use",
         2499,
         false,
         false,
-        2
+        3,
+        1
       ),
       associateWithCanonical(
         queryInterface,
         42,
-        1603,
-        "n/a",
+        4900,
+        "days of use",
         999,
         false,
         false,
-        2
+        4,
+        1
       ),
       associateWithCanonical(
         queryInterface,
         54,
-        1933,
-        "n/a",
+        3300,
+        "days of use",
         6589,
+        true,
         false,
+        5,
+        1
+      ),
+      associateWithCanonical(
+        queryInterface,
+        1001,
+        1000,
+        "days of use",
+        6589,
+        true,
+        true,
+        6,
+        1
+      ),
+      associateWithCanonical(
+        queryInterface,
+        500,
+        1500,
+        "days of use",
+        9000,
+        true,
         false,
-        2
+        7,
+        1
       )
     ]).then(promises => {
       return queryInterface.bulkInsert("Items", promises, {});
@@ -107,16 +98,11 @@ function associateWithCanonical(
   price,
   auto,
   completed,
-  canonicalId
+  canonicalId,
+  userId
 ) {
   return queryInterface
-    .rawSelect(
-      "CanonicalItems",
-      {
-        where: { canonicalId }
-      },
-      ["canonicalId"]
-    )
+    .rawSelect("CanonicalItems", { where: { canonicalId } }, ["canonicalId"])
     .then(canonicalId => {
       const date = new Date();
 
@@ -130,6 +116,7 @@ function associateWithCanonical(
         auto,
         completed,
         canonicalId,
+        userId,
         createdAt: date,
         updatedAt: date
       };

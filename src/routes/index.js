@@ -37,6 +37,14 @@ export default app => {
   app.put("/canonical/:id", C.CanonicalItems.update);
   app.delete("/canonical/:id", C.CanonicalItems.destroy);
 
+  /* Items by User */
+  app.get("/users/:userId/items", C.ItemsByUser.list);
+  // TODO: implement crud operations
+  // app.post('/users/:userId/items/', C.ItemsByUser.create);
+  // app.get('/users/:userId/items/:id', C.ItemsByUser.find);
+  // app.put('/users/:userId/items/:id', C.ItemsByUser.update);
+  // app.delete('/users/:userId/items/:id', C.ItemsByUser.destroy);
+
   /* Items */
   app.get("/items", C.Items.list);
   app.post("/items/", C.Items.create);
