@@ -16,9 +16,9 @@ services:
     deploy:
       labels:
         traefik.port: '7770'
-        traefik.backend: 'mercury_api_dev'
+        traefik.backend: 'mercury_staging'
         traefik.docker.network: 'traefik'
-        traefik.frontend.rule: 'Host:mercury-api-dev.lndgrn.xyz'
+        traefik.frontend.rule: 'Host:mercury-api-staging.chas.school'
   database:
     image: 'postgres:9.6'
     volumes:
