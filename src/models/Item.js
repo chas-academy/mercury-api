@@ -1,10 +1,11 @@
-'use strict';
+"use strict";
 
 export default (sequelize, DataTypes) => {
-  const Item = sequelize.define('Item', {
+  const Item = sequelize.define("Item", {
     itemId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     delimiter: DataTypes.INTEGER,
     goal: DataTypes.INTEGER,
@@ -16,17 +17,17 @@ export default (sequelize, DataTypes) => {
     userMetaId: DataTypes.INTEGER
   });
 
-  Item.associate = (models) => {
+  Item.associate = models => {
     Item.belongsTo(models.CanonicalItem, {
-      as: 'CanonicalItem',
-      foreignKey: 'canonicalId'
+      as: "canonicalItem",
+      foreignKey: "canonicalId"
     });
 
     Item.belongsTo(models.UserMeta, {
-      as: 'UserMeta',
-      foreignKey: 'userMetaId'
+      as: "UserMeta",
+      foreignKey: "userMetaId"
     });
   };
 
   return Item;
-}
+};
