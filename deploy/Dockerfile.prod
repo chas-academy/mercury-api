@@ -1,21 +1,24 @@
 FROM mhart/alpine-node:10.0.0 as builder
 
-ENV NODE_ENV=production
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
 
 ADD yarn.lock /yarn.lock
 ADD package.json /package.json
 
-RUN yarn --ignore-engines
+RUN yarn
 
 WORKDIR /app
 ADD . /app
 
 RUN yarn run build
 
-FROM mhart/alpine-node:base-10.0.0
+FROM mhart/alpine-node:10.0.0
+
+ENV NODE_ENV=production
+
 WORKDIR /app
+
 COPY --from=builder /node_modules /node_modules
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/.env /app/.env
