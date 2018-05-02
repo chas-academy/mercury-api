@@ -1,19 +1,19 @@
-import db from "../models";
+import db from '../models';
 
 export function getAllItemsByUserId(userId) {
   return db.Item.findAll({
     where: {
-      userMetaId: userId
+      userMetaId: userId,
     },
-    attributes: { exclude: ["canonicalId", "userMetaId"] },
+    attributes: { exclude: ['canonicalId', 'userMetaId'] },
     include: [
       {
         model: db.CanonicalItem,
         attributes: {
-          exclude: ["createdAt", "updatedAt", "canonicalId"]
+          exclude: ['createdAt', 'updatedAt', 'canonicalId'],
         },
-        as: "canonicalItem"
-      }
-    ]
+        as: 'CanonicalItem',
+      },
+    ],
   });
 }

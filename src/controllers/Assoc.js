@@ -1,4 +1,4 @@
-import db from "../models";
+import db from '../models';
 
 export default {
   list: (req, res) =>
@@ -6,16 +6,16 @@ export default {
       include: [
         {
           model: db.CanonicalItem,
-          as: "canonicalItem"
-        }
-      ]
+          as: 'CanonicalItem',
+        },
+      ],
     })
-      .then(items => {
+      .then((items) => {
         res.status(200).json({
-          data: items
+          data: items,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(400).send(error);
-      })
+      }),
 };

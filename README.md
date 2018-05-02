@@ -59,13 +59,13 @@ Examples of what HTTP bodies should look like in responses and POST requests (_i
 {
   data: {
     item: {
-      "goal": 3000, // number
-      "goalType": "days of uses", //string
-      "delimiter": 0, // number
-      "price": 5000, // number
-      "auto": false, // boolean
-      "completed": false, // boolean
-      "canonicalId": 3 // number
+      "goal": 3000,
+      "goalType": "days of uses",
+      "delimiter": 0,
+      "price": 5000,
+      "auto": false,
+      "completed": false,
+      "canonicalId": 3
     }
   }
 }
@@ -84,17 +84,16 @@ Response with **status 200** to `GET` --> `/users/:userId/items`
 {
   "data": [
     {
-      "itemId": 1, // number
-      "goal": 1460, // number
+      "itemId": 1,
+      "goal": 1460,
       "goalType": "days of use",
-      "delimiter": 145, // number
-      "price": 9900, // number
-      "auto": true, // boolean
-      "completed": false, // boolean
+      "delimiter": 145,
+      "price": 9900,
+      "auto": true,
+      "completed": false,
       "createdAt": "2018-04-30T10:37:56.014Z",
       "updatedAt": "2018-04-30T10:37:56.014Z",
       "canonicalItem": {
-        "canonicalId": 1,
         "name": "iPhone X",
         "icon": "smartphone"
       }
@@ -110,7 +109,6 @@ Response with **status 200** to `GET` --> `/users/:userId/items`
       "createdAt": "2018-04-30T10:37:56.014Z",
       "updatedAt": "2018-04-30T10:37:56.014Z",
       "canonicalItem": {
-        "canonicalId": 2,
         "name": "MacBookPro ",
         "icon": "latop"
       }
@@ -137,7 +135,6 @@ Response with **status 200** to `GET` --> `/users/:userId/items/:itemId`
       "createdAt": "2018-04-30T10:37:56.014Z",
       "updatedAt": "2018-04-30T10:37:56.014Z",
       "canonicalItem": {
-        "canonicalId": 2,
         "name": "MacBookPro ",
         "icon": "latop"
       }

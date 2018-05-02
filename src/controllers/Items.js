@@ -1,12 +1,12 @@
-import db from "../models";
+import db from '../models';
 
 export default {
   list(req, res) {
     db.Item.findAll()
-      .then(items => {
+      .then((items) => {
         res.status(200).json(items);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(400).send(error);
       });
   },
@@ -14,12 +14,12 @@ export default {
   create(req, res) {
     db.Item.create({
       res,
-      body: req.body
+      body: req.body,
     })
-      .then(item => {
+      .then((item) => {
         res.status(200).json(item);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(400).send(error);
       });
   },
@@ -28,14 +28,14 @@ export default {
     db.Item.find({
       res,
       where: {
-        id: req.params.id
+        id: req.params.id,
       }
-        .then(item => {
+        .then((item) => {
           res.status(200).json(item);
         })
-        .catch(error => {
+        .catch((error) => {
           res.status(400).send(error);
-        })
+        }),
     });
   },
 
@@ -43,14 +43,14 @@ export default {
     db.Item.update({
       res,
       body: req.body,
-      id: req.params.id
+      id: req.params.id,
     });
   },
 
   destroy(req, res) {
     db.Item.destroy({
       res,
-      id: req.params.id
+      id: req.params.id,
     });
-  }
+  },
 };
