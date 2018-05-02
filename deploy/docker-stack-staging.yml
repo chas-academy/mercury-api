@@ -10,7 +10,7 @@ services:
     depends_on:
       - database
     env_file:
-      - .env
+      - .env.staging
     networks:
       - traefik
     deploy:
@@ -24,7 +24,7 @@ services:
     volumes:
       - 'database:/var/lib/postgresql/data'
     env_file:
-      - .env
+      - .env.staging
     networks:
       - traefik
     deploy:
