@@ -10,7 +10,8 @@ export default (sequelize, DataTypes) => {
     goalType: DataTypes.STRING,
     auto: DataTypes.BOOLEAN,
     completed: DataTypes.BOOLEAN,
-    canonicalId: DataTypes.INTEGER
+    canonicalId: DataTypes.INTEGER,
+    userMetaId: DataTypes.INTEGER
   });
 
   Item.associate = (models) => {
