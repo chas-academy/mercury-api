@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Items', {
@@ -21,6 +22,9 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       canonicalId: {
+        type: Sequelize.INTEGER
+      },
+      userMetaId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
