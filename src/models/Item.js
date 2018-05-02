@@ -18,6 +18,11 @@ export default (sequelize, DataTypes) => {
       as: 'CanonicalItem',
       foreignKey: 'canonicalId'
     });
+
+    Item.belongsTo(models.UserMeta, {
+      as: 'UserMeta',
+      foreignKey: 'userMetaId'
+    });
   };
 
   return Item;

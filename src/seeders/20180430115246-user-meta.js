@@ -38,7 +38,6 @@ function associateWithUser(
     return {
       age,
       location,
-      userId,
       createdAt: date,
       updatedAt: date
     }
