@@ -56,5 +56,4 @@ export default app => {
   app.get("/assoc", C.Assoc.list);
   /* Test get user-meta and associated user */
   app.get("/user-meta", C.UserMeta.list);
-  app.get("/users/:userId/items", C.Assoc.getAll);
 };

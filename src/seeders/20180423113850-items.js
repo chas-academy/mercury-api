@@ -99,7 +99,7 @@ function associateWithCanonical(
   auto,
   completed,
   canonicalId,
-  userId
+  userMetaId
 ) {
   return queryInterface
     .rawSelect("CanonicalItems", { where: { canonicalId } }, ["canonicalId"])
@@ -116,7 +116,7 @@ function associateWithCanonical(
         auto,
         completed,
         canonicalId,
-        userId,
+        userMetaId,
         createdAt: date,
         updatedAt: date
       };

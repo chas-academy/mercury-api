@@ -29,5 +29,7 @@ export default (sequelize, DataTypes) => {
     });
   };
 
+  Item.prototype.getName = () => [this.canonicalId];
+
   return Item;
 };
