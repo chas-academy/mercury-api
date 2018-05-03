@@ -46,10 +46,13 @@ export default (app) => {
 
   /* Items */
   app.get('/items', C.Items.list);
-  app.post('/items/', C.Items.create);
+  // app.post('/items/', C.Items.create);
   app.get('/items/:id', C.Items.find);
   app.put('/items/:id', C.Items.update);
   app.delete('/items/:id', C.Items.destroy);
+
+  /* Advanced Items */
+  app.post('/items', C.Items.createWithAssoc);
 
   /* Test get items with associations */
   app.get('/assoc', C.Assoc.list);

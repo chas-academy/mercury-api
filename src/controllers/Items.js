@@ -25,6 +25,13 @@ export default {
       });
   },
 
+  createWithAssoc(req, res) {
+    Items.createItemWithAssociations({
+      res,
+      body: req.body,
+    });
+  },
+
   find(req, res) {
     db.Item.find({
       res,

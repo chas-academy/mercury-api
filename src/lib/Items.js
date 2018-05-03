@@ -45,6 +45,7 @@ export function createItemWithAssociations(options) {
   })
     .then((Item) => {
       console.log(Item);
+      return res.status(200).send(Item);
     })
     .catch((error) => {
       console.log(error);
