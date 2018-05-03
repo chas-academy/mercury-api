@@ -1,4 +1,5 @@
 import db from '../models';
+import * as Items from '../lib/Items';
 
 export default {
   list(req, res) {
