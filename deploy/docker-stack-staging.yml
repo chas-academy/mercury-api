@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   api:
-    image: registry.chas.school/mercury-api-dev:latest
+    image: registry.chas.school/mercury-api-staging:latest
     working_dir: /app
     command: node dist/server.js
     environment:
