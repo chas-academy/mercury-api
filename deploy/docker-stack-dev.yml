@@ -13,6 +13,7 @@ services:
       - .env.dev
     networks:
       - traefik
+      - backend
     deploy:
       labels:
         traefik.port: '7770'
@@ -26,10 +27,10 @@ services:
     env_file:
       - .env.dev
     networks:
-      - traefik
+      - backend
     deploy:
       labels:
-        traefik.docker.network: traefik
+        traefik.docker.network: 'traefik'
 
 volumes:
   database:
@@ -37,3 +38,4 @@ volumes:
 networks:
   traefik:
     external: true
+  backend:
