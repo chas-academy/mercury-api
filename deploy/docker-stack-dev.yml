@@ -30,7 +30,7 @@ services:
       - backend
     deploy:
       labels:
-        traefik.enable: false
+        traefik.enable: 'false'
 
 volumes:
   database:
