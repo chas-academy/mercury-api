@@ -17,7 +17,7 @@ services:
     deploy:
       labels:
         traefik.port: '7770'
-        traefik.backend: 'mercury_api'
+        traefik.backend: 'mercury_dev'
         traefik.docker.network: 'traefik'
         traefik.frontend.rule: 'Host:mercury-api-dev.chas.school'
   database:
@@ -30,7 +30,7 @@ services:
       - backend
     deploy:
       labels:
-        traefik.docker.network: 'traefik'
+        traefik.enable: false
 
 volumes:
   database:
@@ -39,3 +39,4 @@ networks:
   traefik:
     external: true
   backend:
+    external: false
