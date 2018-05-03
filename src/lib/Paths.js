@@ -7,16 +7,13 @@ export function create(options) {
     excludedPaths: body.excludedPaths,
   };
 
-  DB.Path
-    .create({ userId, value })
+  DB.Path.create({ userId, value })
     .then((Path) => {
       const data = Path ? { userId } : null;
 
       return res.status(Path ? 201 : 400).send(data);
     })
     .catch((error) => {
-      console.log(error);
-
       res.status(400).send(error);
     });
 }
@@ -27,15 +24,15 @@ export function update(options) {
     allowedPaths: body.allowedPaths,
     excludedPaths: body.excludedPaths,
   };
-
-  DB.Path
-    .update({ value }, {
+  
+  DB.Path.update(
+    { value },
+    {
       where: { userId },
-    })
+    },
+  )
     .then(Path => res.status(Path ? 200 : 400).send())
     .catch((error) => {
-      console.log(error);
-
       res.status(400).send(error);
     });
 }

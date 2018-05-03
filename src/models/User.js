@@ -1,4 +1,4 @@
-
+'use strict';
 
 import bcrypt from 'bcryptjs';
 
@@ -33,6 +33,11 @@ export default (sequelize, DataTypes) => {
 
     User.hasMany(models.Session, {
       as: 'Sessions',
+      foreignKey: 'userId',
+    });
+    
+    User.hasOne(models.UserMeta, {
+      as: 'UserMeta',
       foreignKey: 'userId',
     });
   };

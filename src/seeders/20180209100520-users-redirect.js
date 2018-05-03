@@ -1,9 +1,13 @@
-
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => Promise.all([
     userRedirect(queryInterface, 'referrer@email.com', '/redux'),
-    userRedirect(queryInterface, 'redirect@email.com', 'https://github.com/anthub-services/create-react-app-boilerplate'),
+    userRedirect(
+      queryInterface,
+      'redirect@email.com',
+      'https://github.com/anthub-services/create-react-app-boilerplate',
+    ),
   ]),
 
   down: (queryInterface, Sequelize) => Promise.all([

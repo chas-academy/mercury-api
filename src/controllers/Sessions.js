@@ -2,8 +2,7 @@ import * as Sessions from '../lib/Sessions';
 
 export default {
   authenticate(req, res) {
-    Sessions
-      .auth(req, res)
+    Sessions.auth(req, res)
       .then((auth) => {
         res.status(auth.status).send(auth.data);
       })
@@ -13,10 +12,9 @@ export default {
   },
 
   signOut(req, res) {
-    Sessions.signOut(req)
-      .then(() => {
-        res.status(200).send();
-      });
+    Sessions.signOut(req).then(() => {
+      res.status(200).send();
+    });
   },
 
   verifyToken(req, res) {

@@ -1,4 +1,4 @@
-
+'use strict';
 
 export default (sequelize, DataTypes) => {
   const Path = sequelize.define('Path', {

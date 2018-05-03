@@ -1,14 +1,19 @@
-
+'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [
-    user('Super Admin', 'User', 'superadmin@email.com', 'Super Admin', mockDateTime(20)),
-    user('Admin', 'User', 'admin@email.com', 'Admin', mockDateTime(16)),
-    user('Default', 'User', 'user@email.com', 'User', mockDateTime(12)),
-    user('Referrer', 'User', 'referrer@email.com', 'User', mockDateTime(8)),
-    user('Redirect', 'User', 'redirect@email.com', 'User', mockDateTime(4)),
-    user('Blocked', 'User', 'blocked@email.com', 'User', mockDateTime(0), 'blocked'),
-  ], {}),
+  up: (queryInterface, Sequelize) =>
+    queryInterface.bulkInsert(
+      'Users',
+      [
+        user('Super Admin', 'User', 'superadmin@email.com', 'Super Admin', mockDateTime(20)),
+        user('Admin', 'User', 'admin@email.com', 'Admin', mockDateTime(16)),
+        user('Default', 'User', 'user@email.com', 'User', mockDateTime(12)),
+        user('Referrer', 'User', 'referrer@email.com', 'User', mockDateTime(8)),
+        user('Redirect', 'User', 'redirect@email.com', 'User', mockDateTime(4)),
+        user('Blocked', 'User', 'blocked@email.com', 'User', mockDateTime(0), 'blocked'),
+      ],
+      {},
+    ),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Users', null, {}),
 };
@@ -37,7 +42,9 @@ function user(firstName, lastName, email, role, date, status = 'active') {
 }
 
 function mockDateTime(days) {
-  return Moment().subtract(rand(days, days + 3), 'days')
+
+  return Moment()
+    .subtract(rand(days, days + 3), 'days')
     .subtract(rand(), 'hours')
     .subtract(rand(), 'minutes')
     .subtract(rand(), 'seconds')

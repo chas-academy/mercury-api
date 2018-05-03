@@ -1,0 +1,5 @@
+node_modules/*
+test/*
+bin/*
+src/config/database.js
+src/models/index.js

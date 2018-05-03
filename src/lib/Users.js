@@ -10,10 +10,13 @@ const FILTER_OPTIONS = {
   dateFrom: { col: 'createdAt', type: 'minDate' },
   dateTo: { col: 'createdAt', type: 'maxDate' },
 };
-const INCLUDE_PATHS = [{
-  model: DB.Path,
-  as: 'Paths',
-}];
+
+const INCLUDE_PATHS = [
+  {
+    model: DB.Path,
+    as: 'Paths',
+  },
+];
 
 export function list(options) {
   const {
@@ -23,15 +26,14 @@ export function list(options) {
     filtered, sorted, limit, page,
   } = query;
 
-  return DB.User
-    .findAll({
-      where: filters(filtered, FILTER_OPTIONS),
-      exclude: ['password'],
-      include: INCLUDE_PATHS,
-      offset: (page - 1) * limit,
-      limit,
-      order: orderBy(sorted, ['userId', 'asc']),
-    })
+  return DB.User.findAll({
+    where: filters(filtered, FILTER_OPTIONS),
+    exclude: ['password'],
+    include: INCLUDE_PATHS,
+    offset: (page - 1) * limit,
+    limit,
+    order: orderBy(sorted, ['userId', 'asc']),
+  })
     .then((Users) => {
       const data = jsonData ? jsonUsers(Users) : Users;
 
@@ -47,22 +49,19 @@ export function list(options) {
 }
 
 export function pages({ query }) {
-  return DB.User
-    .count({
-      col: 'userId',
-      where: filters(query.filtered, FILTER_OPTIONS),
-    })
-    .then(count => pageCount(query, count));
+  return DB.User.count({
+    col: 'userId',
+    where: filters(query.filtered, FILTER_OPTIONS),
+  }).then(count => pageCount(query, count));
 }
 
 export function find(options) {
   const { res, where, returnData } = options;
 
-  return DB.User
-    .findOne({
-      where,
-      include: INCLUDE_PATHS,
-    })
+  return DB.User.findOne({
+    where,
+    include: INCLUDE_PATHS,
+  })
     .then((User) => {
       const json = User ? jsonUser(User) : null;
 
@@ -87,41 +86,41 @@ export function create(options) {
     res,
     where: { email },
     returnData: true,
-  })
-    .then((User) => {
-      if (User.object) { return res.status(401).send({ message: 'Email already exists.' }); }
+  }).then((User) => {
+    if (User.object) {
+      return res.status(401).send({ message: 'Email already exists.' });
+    }
 
-      const randomPwd = rand(111111, 999999);
-      const salt = BCrypt.genSaltSync(10);
-      const password = BCrypt.hashSync(randomPwd.toString(), salt);
+    const randomPwd = rand(111111, 999999);
+    const salt = BCrypt.genSaltSync(10);
+    const password = BCrypt.hashSync(randomPwd.toString(), salt);
 
-      DB.User
-        .create({
-          firstName,
-          lastName,
-          email,
-          role,
-          password,
-          status,
-          redirect,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .then(User =>
-          // TODO: Create promises for paths creation and
-          // sending temporary password to the new user
+    DB.User.create({
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+      status,
+      redirect,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+      .then(User =>
+        // TODO: Create promises for paths creation and
+        // sending temporary password to the new user
 
-          Paths.create({
-            res,
-            body,
-            userId: User.userId,
-          }))
-        .catch((error) => {
-          console.log(error);
+        Paths.create({
+          res,
+          body,
+          userId: User.userId,
+        }))
+      .catch((error) => {
+        console.log(error);
 
-          return res.status(400).send(error);
-        });
-    });
+        return res.status(400).send(error);
+      });
+  });
 }
 
 export function update(options) {
@@ -136,10 +135,12 @@ export function update(options) {
     returnData: true,
   })
     .then((User) => {
-      if (User.object !== null && User.object.userId !== parseInt(userId)) { return res.status(401).send({ message: 'Email already exists.' }); }
+      if (User.object !== null && User.object.userId !== parseInt(userId)) {
+        return res.status(401).send({ message: 'Email already exists.' });
+      }
 
-      DB.User
-        .update({
+      DB.User.update(
+        {
           firstName,
           lastName,
           email,
@@ -147,14 +148,17 @@ export function update(options) {
           status,
           redirect,
           updatedAt: new Date(),
-        }, {
+        },
+        {
           where: { userId },
-        })
-        .then(User => Paths.update({
-          res,
-          body,
-          userId,
-        }))
+        },
+      )
+        .then(User =>
+          Paths.update({
+            res,
+            body,
+            userId,
+          }))
         .catch((error) => {
           console.log(error);
 
@@ -177,8 +181,7 @@ export function destroy(options) {
     returnData: true,
   })
     .then((User) => {
-      DB.User
-        .destroy({ where: { userId } })
+      DB.User.destroy({ where: { userId } })
         .then(() => res.status(200).send())
         .catch((error) => {
           console.log(error);
@@ -194,8 +197,7 @@ export function destroy(options) {
 }
 
 function jsonUsers(Users) {
-  return Users
-    .map(User => jsonUser(User));
+  return Users.map(User => jsonUser(User));
 }
 
 function jsonUser(User) {
