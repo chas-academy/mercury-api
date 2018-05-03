@@ -1,20 +1,21 @@
-# API Boilerplate
-This is the API boilerplate which will get you started. For any questions regarding the stack, please use our [#help](https://chasacademy.slack.com/messages/C61J8A678/#help) channel in Slack.
+# Mercury API
 
-Table of contents
-=================
+# Table of contents
 
 <!--ts-->
-   * [Directory Layout](#directory-layout)
-   * [Quickstart](#quickstart)
-   * [Usage](#usage)
-      * [Docker](#docker)
-      * [Bash Commands](#bash-commands)
-      * [Database](#database)
-      * [Users](#users)
-<!--te-->
+
+* [Directory Layout](#directory-layout)
+* [Index of Endpoints](#index-of-endpoints)
+* [Quickstart](#quickstart)
+* [Usage](#usage)
+  * [Docker](#docker)
+  * [Bash Commands](#bash-commands)
+  * [Database](#database)
+  * [Users](#users)
+    <!--te-->
 
 ## Directory Layout
+
 ```bash
 ./
 ├── /src                    # Directory for the api code, a standard express app using Postgres as database
@@ -34,7 +35,118 @@ Table of contents
 └── README.md               # The file you are reading right now
 ```
 
+## Index of Endpoints
+
+| Endpoint                       | HTTP verb | Action                 |
+| ------------------------------ | --------- | ---------------------- |
+| `/users`                       | `GET`     | Read all users         |
+| `/users`                       | `POST`    | Create an user         |
+| `/users/:userId`               | `GET`     | Read a specific user   |
+| `/users/:userId`               | `PUT`     | Update a specific user |
+| `/users/:userId`               | `DELETE`  | Delete a specific user |
+| `/users/:userId/items`         | `GET`     | Read an user's items   |
+| `/users/:userId/items/:itemId` | `GET`     | Read an user's         |
+
+### Structure of HTTP bodies
+
+Examples of what HTTP bodies should look like in responses and POST requests (_in json format_):
+
+#### Create an item resource
+
+`POST` --> `/users/:userId/items`
+
+```json
+{
+  data: {
+    item: {
+      "goal": 3000,
+      "goalType": "days of uses",
+      "delimiter": 0,
+      "price": 5000,
+      "auto": false,
+      "completed": false,
+      "canonicalId": 3
+    }
+  }
+}
+```
+
+---
+
+### All of an user's items
+
+Note: Responses to requests concerning `items` returns data in an array, even if it only contains one `item` resource:
+`{ "data": [ ... ] }`
+
+Response with **status 200** to `GET` --> `/users/:userId/items`
+
+```json
+{
+  "data": [
+    {
+      "itemId": 1,
+      "goal": 1460,
+      "goalType": "days of use",
+      "delimiter": 145,
+      "price": 9900,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
+        "name": "iPhone X",
+        "icon": "smartphone"
+      }
+    },
+    {
+      "itemId": 2,
+      "goal": 2170,
+      "goalType": "days of use",
+      "delimiter": 5,
+      "price": 19000,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
+        "name": "MacBookPro ",
+        "icon": "latop"
+      }
+    }
+  ]
+}
+```
+
+### An user's item by id
+
+Response with **status 200** to `GET` --> `/users/:userId/items/:itemId`
+
+```json
+{
+  "data": [
+    {
+      "itemId": 2,
+      "goal": 2170,
+      "goalType": "days of use",
+      "delimiter": 5,
+      "price": 19000,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
+        "name": "MacBookPro ",
+        "icon": "latop"
+      }
+    }
+  ]
+}
+```
+
+---
+
 ## Quickstart
+
 It's best if this is started from the project root instead of inside the api repo, but if for some reason you want to work on the API independently you can run the project from this location. Here's how to do that:
 
 Note: Only change the environment variables for `POSTGRES_USER` and `POSTGRES_PASSWORD` if working on local machine.
@@ -113,7 +225,7 @@ To manage separate Docker instance for API, open another terminal console and ru
 ### Docker
 
 | Command                                | Description                                                        |
-|----------------------------------------|--------------------------------------------------------------------|
+| -------------------------------------- | ------------------------------------------------------------------ |
 | `./bin/install`                        | Build the Docker containers, initialise database and start the app |
 | `./bin/reinstall`                      | Re-build containers, re-initialise database and start the app      |
 | `./bin/start`                          | Start all the services (API and database)                          |
@@ -124,65 +236,65 @@ To manage separate Docker instance for API, open another terminal console and ru
 
 **Local**
 
-| Command                               | Description                                                |
-|---------------------------------------|------------------------------------------------------------|
-| `./bin/pg/local/start`                | Start the PostgreSQL server (for Mac users only)           |
-| `./bin/pg/local/resetdb`              | Drop and re-initialise database                            |
-| `./bin/pg/local/migrate`              | Run new schema migration                                   |
-| `./bin/pg/local/migrateundo`          | Revert the recent schema migration                         |
-| `./bin/pg/local/seed <seed file>`     | Run specific data seed file with or without .js extension  |
-| `./bin/pg/local/seedundo <seed file>` | Revert the seed of specific data seed file                 |
-| `./bin/pg/local/psql`                 | Access the database console                                |
+| Command                               | Description                                               |
+| ------------------------------------- | --------------------------------------------------------- |
+| `./bin/pg/local/start`                | Start the PostgreSQL server (for Mac users only)          |
+| `./bin/pg/local/resetdb`              | Drop and re-initialise database                           |
+| `./bin/pg/local/migrate`              | Run new schema migration                                  |
+| `./bin/pg/local/migrateundo`          | Revert the recent schema migration                        |
+| `./bin/pg/local/seed <seed file>`     | Run specific data seed file with or without .js extension |
+| `./bin/pg/local/seedundo <seed file>` | Revert the seed of specific data seed file                |
+| `./bin/pg/local/psql`                 | Access the database console                               |
 
 **Docker**
 
-- To run the commands for Docker database service, simply remove the `local` from the command
-- The `start` command works only in local machine
-- Used `./bin/pg/psql <database container ID or Name>` to access the database console
+* To run the commands for Docker database service, simply remove the `local` from the command
+* The `start` command works only in local machine
+* Used `./bin/pg/psql <database container ID or Name>` to access the database console
 
 ## Users
 
 Use the following credentials to test different API responses. Default password for all accounts is `password`.
 
-| Name              | Email                  | Description |
-|-------------------|------------------------|-------------|
-| Super Admin User  | `superadmin@email.com` | Has wildcard access |
-| Admin User        | `admin@email.com`      | Has wildcard access but `Admin › Users › Delete` is excluded |
-| Common User       | `user@email.com`       | Can access `My Profile`, `Admin › Dashboard`, `Users`, `Users › View, and Settings` |
-| Referrer User     | `referrer@email.com`   | When `redirect` is set without the domain, e.i. `/admin/dashboard`, user shall be redirected to internal page if no location path (referrer) found on the Sign In page |
+| Name              | Email                  | Description                                                                                                                                                                             |
+| ----------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Super Admin User  | `superadmin@email.com` | Has wildcard access                                                                                                                                                                     |
+| Admin User        | `admin@email.com`      | Has wildcard access but `Admin › Users › Delete` is excluded                                                                                                                            |
+| Common User       | `user@email.com`       | Can access `My Profile`, `Admin › Dashboard`, `Users`, `Users › View, and Settings`                                                                                                     |
+| Referrer User     | `referrer@email.com`   | When `redirect` is set without the domain, e.i. `/admin/dashboard`, user shall be redirected to internal page if no location path (referrer) found on the Sign In page                  |
 | Redirect User     | `redirect@email.com`   | When `redirect` is set with complete URL, e.i. `https://github.com/anthub-services`, user shall be redirected to external page if no location path (referrer) found on the Sign In page |
-| Blocked User      | `blocked@email.com`    | User is signed in but the account is blocked |
-| Unauthorized User | `<any invalid email>`  | Simply enter wrong `email` and/or `password` |
+| Blocked User      | `blocked@email.com`    | User is signed in but the account is blocked                                                                                                                                            |
+| Unauthorized User | `<any invalid email>`  | Simply enter wrong `email` and/or `password`                                                                                                                                            |
 
 ## How to create migrations, models and seeds with as little bs as possible
 
 Use yarn and sequelize-cli to ensure everything is created uniformly.
 
-- Generate model
+* Generate model
 
 `yarn sequelize model:generate --name ModelName --attributes firstAttribute:string,secondAttribute:integer`
 
 This will create a model called ModelName and a corresponding migration-file.
 
-- Migrate
+* Migrate
 
 `yarn sequelize db:migrate`
 
 This will create database-tables based on the migration-files.
 
-- Generate seed
+* Generate seed
 
 If you want to add demo-data to your new table, you need to make a seed.
 
 `yarn sequelize seed:generate --name ModelNames`
 
-- Seed database
+* Seed database
 
 `yarn sequelize db:seed:all`
 
-This will seed all tables with their seeds. 
+This will seed all tables with their seeds.
 
-- Troubleshooting
+* Troubleshooting
 
 You can drop and re-create the database if you screwed up.
 

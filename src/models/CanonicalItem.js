@@ -1,20 +1,21 @@
 'use strict';
+
 export default (sequelize, DataTypes) => {
   const CanonicalItem = sequelize.define('CanonicalItem', {
     canonicalId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     name: DataTypes.STRING,
-    icon: DataTypes.STRING
+    icon: DataTypes.STRING,
   });
 
   CanonicalItem.associate = (models) => {
     CanonicalItem.hasMany(models.Item, {
       as: 'Items',
-      foreignKey: 'itemId'
+      foreignKey: 'itemId',
     });
   };
 
   return CanonicalItem;
-}
+};

@@ -1,35 +1,20 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Items', {
-    itemId: {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('UserMeta', {
+    userMetaId: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    delimiter: {
+    age: {
       type: Sequelize.INTEGER,
     },
-    goal: {
-      type: Sequelize.INTEGER,
-    },
-    goalType: {
+    location: {
       type: Sequelize.STRING,
     },
-    price: {
-      type: Sequelize.INTEGER,
-    },
-    auto: {
-      type: Sequelize.BOOLEAN,
-    },
-    completed: {
-      type: Sequelize.BOOLEAN,
-    },
-    canonicalId: {
-      type: Sequelize.INTEGER,
-    },
-    userMetaId: {
+    userId: {
       type: Sequelize.INTEGER,
     },
     createdAt: {

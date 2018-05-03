@@ -4,20 +4,32 @@ export default (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     itemId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
-    goalDelimiter: DataTypes.INTEGER,
+    delimiter: DataTypes.INTEGER,
+    goal: DataTypes.INTEGER,
     goalType: DataTypes.STRING,
+    price: DataTypes.INTEGER,
     auto: DataTypes.BOOLEAN,
-    canonicalId: DataTypes.INTEGER
+    completed: DataTypes.BOOLEAN,
+    canonicalId: DataTypes.INTEGER,
+    userMetaId: DataTypes.INTEGER,
   });
 
   Item.associate = (models) => {
     Item.belongsTo(models.CanonicalItem, {
       as: 'CanonicalItem',
-      foreignKey: 'canonicalId'
+      foreignKey: 'canonicalId',
+    });
+
+    Item.belongsTo(models.UserMeta, {
+      as: 'UserMeta',
+      foreignKey: 'userMetaId',
     });
   };
 
+  Item.prototype.getName = () => [this.canonicalId];
+
   return Item;
-}
+};
