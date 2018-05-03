@@ -8,11 +8,11 @@
 * [Index of Endpoints](#index-of-endpoints)
 * [Quickstart](#quickstart)
 * [Usage](#usage)
-   * [Docker](#docker)
-   * [Bash Commands](#bash-commands)
-   * [Database](#database)
-   * [Users](#users)
-  <!--te-->
+  * [Docker](#docker)
+  * [Bash Commands](#bash-commands)
+  * [Database](#database)
+  * [Users](#users)
+    <!--te-->
 
 ## Directory Layout
 
@@ -36,83 +36,81 @@
 ```
 
 ## Index of Endpoints
-| Endpoint 						| HTTP verb 	| Action 								|
-----------------------|---------|-------------------------|
-|	`/api/users`	|	`GET`	|	Read all users	
-|	`/api/users` | `POST`	| Create an user
-|	`/api/users/:userId`	|	`GET`| Read a specific user |
-| `/api/users/:userId`		|	`PUT`	| Update a specific user
-|	`/api/users/:userId` 	|	`DELETE`	| Delete a specific user		
-| `/api/users/:userId/items`  | `GET` | Read an user's items |  
-| `/api/users/:userId/items/:itemId` | `GET` | Read an user's 
 
-
+| Endpoint                       | HTTP verb | Action                 |
+| ------------------------------ | --------- | ---------------------- |
+| `/users`                       | `GET`     | Read all users         |
+| `/users`                       | `POST`    | Create an user         |
+| `/users/:userId`               | `GET`     | Read a specific user   |
+| `/users/:userId`               | `PUT`     | Update a specific user |
+| `/users/:userId`               | `DELETE`  | Delete a specific user |
+| `/users/:userId/items`         | `GET`     | Read an user's items   |
+| `/users/:userId/items/:itemId` | `GET`     | Read an user's         |
 
 ### Structure of HTTP bodies
-Examples of what HTTP bodies should look like in responses and POST requests (_in json format_): 
+
+Examples of what HTTP bodies should look like in responses and POST requests (_in json format_):
 
 #### Create an item resource
-`POST` --> `/api/users/:userId/items`
+
+`POST` --> `/users/:userId/items`
+
 ```json
 {
-  "data": {
-    "type": "item",
-    "attributes": {
-      "name": "string",
-      "goal": "number",
-      "delimiter": "number",
-      "price": "number",
-      "auto": "boolean",
-      "completed": "boolean",
-      "icon": "string",
-      "createdAt": "180427",
-      "updatedAt": "180428"
+  data: {
+    item: {
+      "goal": 3000,
+      "goalType": "days of uses",
+      "delimiter": 0,
+      "price": 5000,
+      "auto": false,
+      "completed": false,
+      "canonicalId": 3
     }
   }
 }
 ```
------------------
-Note: Responses to requests concerning `items` returns data in an array, even if it only contains one `item` resource:
-`
-{
-	"data": [ ... ]
-}
-`
+
+---
+
 ### All of an user's items
 
-Response with **status 200** to `GET` --> `/api/users/:userId/items`
+Note: Responses to requests concerning `items` returns data in an array, even if it only contains one `item` resource:
+`{ "data": [ ... ] }`
+
+Response with **status 200** to `GET` --> `/users/:userId/items`
 
 ```json
 {
   "data": [
     {
-      "id": "1",
-      "type": "item",
-      "attributes": {
+      "itemId": 1,
+      "goal": 1460,
+      "goalType": "days of use",
+      "delimiter": 145,
+      "price": 9900,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
         "name": "iPhone X",
-        "goal": "1000",
-        "delimiter": "400",
-        "price": "9999",
-        "auto": "true",
-        "icon": "smartphone",
-        "completed": "false",
-        "createdAt": "180427",
-        "updatedAt": "180428"
+        "icon": "smartphone"
       }
     },
     {
-      "id": "2",
-      "type": "item",
-      "attributes": {
-        "name": "MacBook Pro",
-        "goal": "10000",
-        "delimiter": "600",
-        "price": "18999",
-        "auto": "true",
-        "icon": "laptop",
-        "completed": "false",
-        "createdAt": "180427",
-        "updatedAt": "180428"
+      "itemId": 2,
+      "goal": 2170,
+      "goalType": "days of use",
+      "delimiter": 5,
+      "price": 19000,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
+        "name": "MacBookPro ",
+        "icon": "latop"
       }
     }
   ]
@@ -120,25 +118,26 @@ Response with **status 200** to `GET` --> `/api/users/:userId/items`
 ```
 
 ### An user's item by id
-Response with **status 200** to `GET` --> `/api/users/:userId/items/:itemId`
+
+Response with **status 200** to `GET` --> `/users/:userId/items/:itemId`
 
 ```json
 {
   "data": [
     {
-      "id": "number",
-      "type": "item",
-      "attributes": {
-        "name": "string",
-        "goal": "number",
-        "delimiter": "number",
-        "price": "number",
-        "auto": "boolean",
-        "icon": "string",
-        "completed": "boolean",
-        "createdAt": "180427",
-        "updatedAt": "180428"
-      }  
+      "itemId": 2,
+      "goal": 2170,
+      "goalType": "days of use",
+      "delimiter": 5,
+      "price": 19000,
+      "auto": true,
+      "completed": false,
+      "createdAt": "2018-04-30T10:37:56.014Z",
+      "updatedAt": "2018-04-30T10:37:56.014Z",
+      "canonicalItem": {
+        "name": "MacBookPro ",
+        "icon": "latop"
+      }
     }
   ]
 }
