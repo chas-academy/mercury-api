@@ -5,7 +5,7 @@ export default (app) => {
   app.get('/', (req, res) =>
     res.status(200).send({
       message:
-        'Hello from 16-test_dependencies! I will be updated to include the dependencies required for testing :)',
+        'Hello from Mercury\'s API! Don\'t forget to thank your backend-developer.',
     }));
 
   /* Sessions */
