@@ -42,6 +42,7 @@ function user(firstName, lastName, email, role, date, status = 'active') {
 }
 
 function mockDateTime(days) {
+
   return Moment()
     .subtract(rand(days, days + 3), 'days')
     .subtract(rand(), 'hours')

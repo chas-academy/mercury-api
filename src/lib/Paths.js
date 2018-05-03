@@ -24,7 +24,7 @@ export function update(options) {
     allowedPaths: body.allowedPaths,
     excludedPaths: body.excludedPaths,
   };
-
+  
   DB.Path.update(
     { value },
     {

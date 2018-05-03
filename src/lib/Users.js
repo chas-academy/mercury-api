@@ -10,6 +10,7 @@ const FILTER_OPTIONS = {
   dateFrom: { col: 'createdAt', type: 'minDate' },
   dateTo: { col: 'createdAt', type: 'maxDate' },
 };
+
 const INCLUDE_PATHS = [
   {
     model: DB.Path,
