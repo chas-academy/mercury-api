@@ -6,7 +6,7 @@ import Items from './Items';
 import Assoc from './Assoc';
 import UserMeta from './UserMeta';
 import ItemsByUser from './ItemsByUser';
-import AlgoliaTest from './AlgoliaTest';
+import AlgoliaSync from './AlgoliaSync';
 
 export default {
   Sessions,
@@ -17,5 +17,5 @@ export default {
   Assoc,
   UserMeta,
   ItemsByUser,
-  AlgoliaTest,
+  AlgoliaSync,
 };

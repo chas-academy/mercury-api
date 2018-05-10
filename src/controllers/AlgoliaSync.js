@@ -2,7 +2,7 @@ import algolia from '../config/algolia';
 import db from '../models';
 
 export default {
-    testRun(req, res) {
+    sync(req, res) {
         const index = algolia.initIndex('canonical_items');
         index.clearIndex();
 
@@ -17,7 +17,7 @@ export default {
             })
 
         res.status(200).send({
-            message: 'Hope this works'
+            message: 'Synced canonical items to algolia'
         })
     }
 }
