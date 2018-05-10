@@ -58,6 +58,7 @@ export default (app) => {
   app.get('/assoc', C.Assoc.list);
   /* Test get user-meta and associated user */
   app.get('/user-meta', C.UserMeta.list);
-  /* Algolia test-run */
+
+  /* WARNING! DON'T GO TO THIS ROUTE UNLESS YOU KNOW WHAT YOU'RE DOING */
   app.get('/algolia', C.AlgoliaTest.testRun);
 };
