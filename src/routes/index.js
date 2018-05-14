@@ -50,5 +50,5 @@ export default (app) => {
   app.get('/user-meta', C.UserMeta.list);
 
   /* WARNING! DON'T GO TO THIS ROUTE UNLESS YOU KNOW WHAT YOU'RE DOING */
-  app.get('/algolia', C.AlgoliaSync.sync);
+  app.get('/algolia', authBearer(), C.AlgoliaSync.sync);
 };
