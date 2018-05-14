@@ -37,9 +37,7 @@ export function find(res, options) {
 
       return res.status(Session ? 200 : 404).send(Session);
     })
-    .catch((error) => {
-      return returnData ? error : res.status(400).send(error);
-    });
+    .catch(error => (returnData ? error : res.status(400).send(error)));
 }
 
 export function auth(req, res) {
@@ -56,7 +54,7 @@ export function auth(req, res) {
       data: { message: 'Your account is blocked. Please contact the administrator.' },
     },
   };
-  
+
   return Users.find({ where: { email }, returnData: true }).then((User) => {
     if (!User.object || !(User.object && User.object.authenticate(password))) {
       return authResponse.invalid;
