@@ -43,15 +43,22 @@ export function find(res, options) {
 export function auth(req, res) {
   const status = 200;
   let data = {};
-  const { email, password } = verifyToken(res, { token: req.body.token, returnData: true });
+  const { email, password } = verifyToken(res, {
+    token: req.body.token,
+    returnData: true,
+  });
   const authResponse = {
     invalid: {
       status: 404,
-      data: { message: "The email or password you entered doesn't match any account." },
+      data: {
+        message: "The email or password you entered doesn't match any account.",
+      },
     },
     blocked: {
       status: 401,
-      data: { message: 'Your account is blocked. Please contact the administrator.' },
+      data: {
+        message: 'Your account is blocked. Please contact the administrator.',
+      },
     },
   };
 
@@ -76,7 +83,9 @@ export function auth(req, res) {
     };
 
     return DB.Session.create(sessionData).then(() => {
-      data = Object.assign({}, { token }, data, { redirect: User.json.redirect });
+      data = Object.assign({}, { token }, data, {
+        redirect: User.json.redirect,
+      });
       return { status, data };
     });
   });
@@ -91,6 +100,31 @@ export function signOut(req) {
 
 export function authBearer() {
   return Passport.authenticate('bearer', { session: false });
+}
+
+export function authAdmin(req, res, next) {
+  const token = req.headers.authorization.split(' ')[1];
+
+  return DB.Session.findOne({
+    where: { token },
+  })
+    .then((Session) => {
+      const { userId } = Session;
+
+      return Users.find({ where: { userId }, returnData: true })
+        .then((User) => {
+          const userRole = User.json.role;
+
+          if (userRole === 'Admin') {
+            return next();
+          }
+          return res.status(401).json({
+            message: 'Unauthorized access!',
+          });
+        })
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
 }
 
 function verifyToken(res, { token, returnData }) {

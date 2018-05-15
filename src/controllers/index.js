@@ -7,7 +7,6 @@ import Assoc from './Assoc';
 import UserMeta from './UserMeta';
 import AlgoliaSync from './AlgoliaSync';
 
-
 export default {
   Sessions,
   Tests,
