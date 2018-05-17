@@ -37,7 +37,7 @@ module.exports = {
         queryInterface,
         'Tesla Model X',
         'car',
-        6
+        7
       ),
       associateWithCategory(
         queryInterface,
@@ -85,7 +85,7 @@ module.exports = {
         queryInterface,
         'KitchenAid Artisan Koksmaskin 4,8 L',
         'cooking',
-        1
+        5
       ),
       associateWithCategory(
         queryInterface,
