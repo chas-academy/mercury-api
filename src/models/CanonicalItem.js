@@ -8,12 +8,20 @@ export default (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     icon: DataTypes.STRING,
+    categoryId: DataTypes.INTEGER,
   });
 
   CanonicalItem.associate = (models) => {
     CanonicalItem.hasMany(models.Item, {
       as: 'Items',
       foreignKey: 'itemId',
+    });
+  };
+
+  CanonicalItem.associate = (models) => {
+    CanonicalItem.belongsTo(models.Category, {
+      as: 'Category',
+      foreignKey: 'categoryId',
     });
   };
 
