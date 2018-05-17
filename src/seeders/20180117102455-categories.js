@@ -5,12 +5,37 @@ module.exports = {
     queryInterface.bulkInsert('Categories',
       [
         {
-          name: 'Test Category',
+          name: 'Mobil',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          name: 'Test Category 2',
+          name: 'Datorer och tillbehör',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'Spel och film',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'Ljud, bild och musik',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'Hem och trädgård',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'Skönhet och hälsa',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'Fordon',
           createdAt: new Date(),
           updatedAt: new Date()
         }

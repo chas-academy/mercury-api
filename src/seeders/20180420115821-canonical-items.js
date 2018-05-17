@@ -19,55 +19,55 @@ module.exports = {
         queryInterface,
         'Apple Mac Book Pro 13 Touchbar',
         'macbook',
-        1
+        2
       ),
       associateWithCategory(
         queryInterface,
         'Lenovo Thinkpad 13',
         'laptop',
-        1
+        2
       ),
       associateWithCategory(
         queryInterface,
         'Bose Quiet Comfort 3',
         'headphones',
-        1
+        4
       ),
       associateWithCategory(
         queryInterface,
         'Tesla Model X',
         'car',
-        1
+        6
       ),
       associateWithCategory(
         queryInterface,
         'Xerjoff Kampuchea Noir 10ml',
         'bottle',
-        1
+        6
       ),
       associateWithCategory(
         queryInterface,
         'Tesla Model S',
         'car',
-        1
+        7
       ),
       associateWithCategory(
         queryInterface,
         'Apple iMac Pro',
         'imac',
-        1
+        2
       ),
       associateWithCategory(
         queryInterface,
         'Apple Homepod White',
         'speaker',
-        1
+        4
       ),
       associateWithCategory(
         queryInterface,
         'Kamisori Iwasaki Tamahagane 2CHOGAKE',
         'knife',
-        1
+        6
       ),
       associateWithCategory(
         queryInterface,
@@ -79,7 +79,7 @@ module.exports = {
         queryInterface,
         'Moccamaster KBC741 Brushed AO',
         'cup',
-        1
+        5
       ),
       associateWithCategory(
         queryInterface,
@@ -91,31 +91,31 @@ module.exports = {
         queryInterface,
         'Nintendo Switch Blue',
         'handheld',
-        2
+        3
       ),
       associateWithCategory(
         queryInterface,
         'Xbox One X',
         'console',
-        2
+        3
       ),
       associateWithCategory(
         queryInterface,
         'Blue Microphones Yeti Black',
         'microphone',
-        2
+        4
       ),
       associateWithCategory(
         queryInterface,
         'Apple Beats Solo3',
         'headphones',
-        1
+        4
       ),
       associateWithCategory(
         queryInterface,
         'Apple iPad Pro 10.5 256GB Wifi Space Gray',
         'ipad',
-        1
+        2
       ),
     ]).then(promises => queryInterface.bulkInsert('CanonicalItems', promises, {})),
 

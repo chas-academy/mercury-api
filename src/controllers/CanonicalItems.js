@@ -2,7 +2,12 @@ import db from '../models';
 
 export default {
   list(req, res) {
-    db.CanonicalItem.findAll()
+    db.CanonicalItem.findAll({
+      include: [{
+        model: db.Category,
+        as: 'Category'
+      }]
+    })
       .then((data) => {
         res.status(200).json(data);
       })
