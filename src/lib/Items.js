@@ -13,6 +13,12 @@ export function getAllItemsByUserId(userId) {
           exclude: ['createdAt', 'updatedAt', 'canonicalId'],
         },
         as: 'CanonicalItem',
+        include: [{
+          model: db.Category,
+          attributes: {
+            exclude: ['createdAt', 'updatedAt']
+          }
+        }]
       },
     ],
   });
