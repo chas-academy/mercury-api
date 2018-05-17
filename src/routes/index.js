@@ -1,11 +1,10 @@
-import { authBearer } from '../lib/Sessions';
+import { authBearer, authAdmin } from '../lib/Sessions';
 import C from '../controllers';
 
 export default (app) => {
   app.get('/', (req, res) =>
     res.status(200).send({
-      message:
-        'Hello from Mercury\'s API! Don\'t forget to thank your backend-developer.',
+      message: "Hello from Mercury's API! Don't forget to thank your backend-developer.",
     }));
 
   /* Sessions */
@@ -36,26 +35,21 @@ export default (app) => {
   app.put('/canonical/:id', C.CanonicalItems.update);
   app.delete('/canonical/:id', C.CanonicalItems.destroy);
 
-  /* Items by User */
-  app.get('/users/:userId/items', C.ItemsByUser.list);
-  // TODO: implement crud operations
-  // app.post('/users/:userId/items/', C.ItemsByUser.create);
-  // app.get('/users/:userId/items/:id', C.ItemsByUser.find);
-  // app.put('/users/:userId/items/:id', C.ItemsByUser.update);
-  // app.delete('/users/:userId/items/:id', C.ItemsByUser.destroy);
-
   /* Items */
-  app.get('/items', C.Items.list);
-  // app.post('/items/', C.Items.create);
-  app.get('/items/:id', C.Items.find);
-  app.put('/items/:id', C.Items.update);
-  app.delete('/items/:id', C.Items.destroy);
+  app.get('/users/:userId/items', authBearer(), C.Items.list);
+  app.put('/items/:id/increment', authBearer(), C.Items.incrementUsage);
+  app.get('/items/:id', authBearer(), C.Items.find);
+  app.put('/items/:id', authBearer(), C.Items.update);
+  app.delete('/items/:id', authBearer(), C.Items.destroy);
 
   /* Advanced Items */
-  app.post('/items', C.Items.createWithAssoc);
+  app.post('/items', authBearer(), C.Items.createWithAssoc);
 
   /* Test get items with associations */
   app.get('/assoc', C.Assoc.list);
   /* Test get user-meta and associated user */
   app.get('/user-meta', C.UserMeta.list);
+
+  /* WARNING! DON'T GO TO THIS ROUTE UNLESS YOU KNOW WHAT YOU'RE DOING */
+  app.get('/algolia', authAdmin, C.AlgoliaSync.sync);
 };

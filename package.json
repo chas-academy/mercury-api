@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/chas-academy/project-api-boilerplate/tree/master",
   "dependencies": {
+    "algoliasearch": "^3.27.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.0.1",
     "cors": "^2.8.4",
