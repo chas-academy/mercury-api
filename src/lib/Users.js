@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import BCrypt from 'bcryptjs';
 import DB from '../models';
+import JWT from 'jsonwebtoken';
 import * as Paths from '../lib/Paths';
 import { filters, pageCount, orderBy } from '../helpers/Data';
 import { rand } from '../helpers/Math';
@@ -77,10 +78,8 @@ export function find(options) {
 }
 
 export function create(options) {
-  const { res, body } = options;
-  const {
-    firstName, lastName, email, role, redirect, status, allowedPaths, excludedPaths,
-  } = body;
+  const res = options.res;
+  const body = JWT.verify(options.token, process.env.JWT_SECRET);
 
   find({
     res,
