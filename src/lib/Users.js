@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import BCrypt from 'bcryptjs';
 import DB from '../models';
-import JWT from 'jsonwebtoken';
 import * as Paths from '../lib/Paths';
 import { filters, pageCount, orderBy } from '../helpers/Data';
 import { rand } from '../helpers/Math';
-import moment from 'moment';
 
 const FILTER_OPTIONS = {
   userId: { type: 'integer' },
@@ -62,7 +60,7 @@ export function find(options) {
 
   return DB.User.findOne({
     where,
-    // include: INCLUDE_PATHS,
+    include: INCLUDE_PATHS,
   })
     .then((User) => {
       const json = User ? jsonUser(User) : null;
@@ -79,30 +77,23 @@ export function find(options) {
 }
 
 export function create(options) {
-  const res = options.res;
-  const body = JWT.verify(options.body.token, process.env.JWT_SECRET);
-  let { password } = body;
+  const { res, body } = options;
   const {
-    firstName,
-    lastName,
-    birthday,
-    email,
-    location
+    firstName, lastName, email, role, redirect, status, allowedPaths, excludedPaths,
   } = body;
+
   find({
     res,
     where: { email },
     returnData: true,
   }).then((User) => {
     if (User.object) {
-      return res.status(401).send('Email already exists.');
+      return res.status(401).send({ message: 'Email already exists.' });
     }
 
+    const randomPwd = rand(111111, 999999);
     const salt = BCrypt.genSaltSync(10);
-    password = BCrypt.hashSync(password, salt);
-    const role = 'n/a';
-    const status = 'n/a';
-    const redirect = 'n/a';
+    const password = BCrypt.hashSync(randomPwd.toString(), salt);
 
     DB.User.create({
       firstName,
@@ -115,22 +106,18 @@ export function create(options) {
       createdAt: new Date(),
       updatedAt: new Date(),
     })
-      .then((User) => {
-        DB.UserMeta.create({
-          age: moment().diff(birthday, 'years'),
-          location: location,
-          userId: User.userId
-        })
-          .then((Response) => {
-            return res.status(200).send(Response)
-          })
-          .catch((error) => {
-            console.error(error);
-            return res.status(400).send(error);
-          })
-      })
+      .then(User =>
+        // TODO: Create promises for paths creation and
+        // sending temporary password to the new user
+
+        Paths.create({
+          res,
+          body,
+          userId: User.userId,
+        }))
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+
         return res.status(400).send(error);
       });
   });
@@ -214,6 +201,7 @@ function jsonUsers(Users) {
 }
 
 function jsonUser(User) {
+  const { allowedPaths, excludedPaths } = User.Paths.value;
 
   return {
     userId: User.userId,
@@ -224,5 +212,7 @@ function jsonUser(User) {
     status: User.status,
     redirect: User.redirect,
     createdAt: User.createdAt,
+    allowedPaths,
+    excludedPaths,
   };
 }

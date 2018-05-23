@@ -72,7 +72,6 @@ export function auth(req, res) {
     }
 
     const date = new Date();
-    console.log('password: ', password);
     const token = JWT.sign(Object.assign({}, User.json, { date }), process.env.JWT_SECRET, {
       expiresIn: 86400,
     });
