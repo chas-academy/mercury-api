@@ -104,7 +104,7 @@ export function create(options) {
       status,
       redirect,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     })
       .then(User =>
         // TODO: Create promises for paths creation and
