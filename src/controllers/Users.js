@@ -27,18 +27,10 @@ export default {
     // sending temporary password to the new user
     // after the user record has beend created
 
-    console.log(req.body);
-
     Users.create({
       res,
       body: req.body,
-    })
-    // .then((user) => {
-    //   res.status(200).json(user);
-    // })
-    // .catch((error) => {
-    //   res.status(400).send(error);
-    // })
+    });
   },
 
   find(req, res) {
