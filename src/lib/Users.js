@@ -5,6 +5,7 @@ import JWT from 'jsonwebtoken';
 import * as Paths from '../lib/Paths';
 import { filters, pageCount, orderBy } from '../helpers/Data';
 import { rand } from '../helpers/Math';
+import moment from 'moment';
 
 const FILTER_OPTIONS = {
   userId: { type: 'integer' },
@@ -115,8 +116,18 @@ export function create(options) {
       updatedAt: new Date(),
     })
       .then((User) => {
-        console.log(User);
-        return res.status(200).send(User)
+        DB.UserMeta.create({
+          age: moment().diff(birthday, 'years'),
+          location: location,
+          userId: User.userId
+        })
+          .then((Response) => {
+            return res.status(200).send(Response)
+          })
+          .catch((error) => {
+            console.error(error);
+            return res.status(400).send(error);
+          })
       })
       .catch((error) => {
         console.error(error);
