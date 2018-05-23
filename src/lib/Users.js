@@ -61,7 +61,7 @@ export function find(options) {
 
   return DB.User.findOne({
     where,
-    include: INCLUDE_PATHS,
+    // include: INCLUDE_PATHS,
   })
     .then((User) => {
       const json = User ? jsonUser(User) : null;
@@ -80,10 +80,10 @@ export function find(options) {
 export function create(options) {
   const res = options.res;
   const body = JWT.verify(options.body.token, process.env.JWT_SECRET);
+  let { password } = body;
   const {
     firstName,
     lastName,
-    password,
     birthday,
     email,
     location
@@ -97,9 +97,8 @@ export function create(options) {
       return res.status(401).send('Email already exists.');
     }
 
-    const randomPwd = rand(111111, 999999);
     const salt = BCrypt.genSaltSync(10);
-    const password = BCrypt.hashSync(randomPwd.toString(), salt);
+    password = BCrypt.hashSync(password, salt);
     const role = 'n/a';
     const status = 'n/a';
     const redirect = 'n/a';
@@ -204,7 +203,6 @@ function jsonUsers(Users) {
 }
 
 function jsonUser(User) {
-  // const { allowedPaths, excludedPaths } = User.Paths.value;
 
   return {
     userId: User.userId,
@@ -215,7 +213,5 @@ function jsonUser(User) {
     status: User.status,
     redirect: User.redirect,
     createdAt: User.createdAt,
-    // allowedPaths,
-    // excludedPaths,
   };
 }
