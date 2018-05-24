@@ -60,6 +60,23 @@ export default {
       });
   },
 
+  decrementUsage(req, res) {
+    const itemId = req.params.id;
+
+    db.Item.update({ delimiter: Sequelize.literal('delimiter - 1') }, { where: { itemId } })
+      .then((response) => {
+        const decrement = response[0];
+
+        res.status(200).json({
+          message: 'success',
+          decrement,
+        });
+      })
+      .catch((error) => {
+        res.status(400).send(error);
+      });
+  },
+
   destroy(req, res) {
     db.Item.destroy({
       res,

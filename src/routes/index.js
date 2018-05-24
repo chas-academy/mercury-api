@@ -38,6 +38,7 @@ export default (app) => {
   /* Items */
   app.get('/users/:userId/items', authBearer(), C.Items.list);
   app.put('/items/:id/increment', authBearer(), C.Items.incrementUsage);
+  app.put('/items/:id/decrement', authBearer(), C.Items.decrementUsage);
   app.get('/items/:id', authBearer(), C.Items.find);
   app.put('/items/:id', authBearer(), C.Items.update);
   app.delete('/items/:id', authBearer(), C.Items.destroy);
