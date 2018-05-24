@@ -83,11 +83,7 @@ export function create(options) {
   const body = JWT.verify(options.body.token, process.env.JWT_SECRET);
   let { password } = body;
   const {
-    firstName,
-    lastName,
-    birthday,
-    email,
-    location
+    firstName, lastName, birthday, email, location,
   } = body;
   find({
     res,
@@ -95,7 +91,7 @@ export function create(options) {
     returnData: true,
   }).then((User) => {
     if (User.object) {
-      return res.status(401).send('Email already exists.');
+      return res.status(401).json({ message: 'E-posten är redan kopplad till ett konto' });
     }
 
     const salt = BCrypt.genSaltSync(10);
@@ -118,16 +114,14 @@ export function create(options) {
       .then((User) => {
         DB.UserMeta.create({
           age: moment().diff(birthday, 'years'),
-          location: location,
-          userId: User.userId
+          location,
+          userId: User.userId,
         })
-          .then((Response) => {
-            return res.status(200).send(Response)
-          })
+          .then(Response => res.status(200).send(Response))
           .catch((error) => {
             console.error(error);
             return res.status(400).send(error);
-          })
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -214,7 +208,6 @@ function jsonUsers(Users) {
 }
 
 function jsonUser(User) {
-
   return {
     userId: User.userId,
     firstName: User.firstName,
