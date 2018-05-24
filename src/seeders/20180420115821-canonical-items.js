@@ -78,13 +78,13 @@ module.exports = {
       associateWithCategory(
         queryInterface,
         'Moccamaster KBC741 Brushed AO',
-        'cup',
+        'coffee-maker',
         5
       ),
       associateWithCategory(
         queryInterface,
         'KitchenAid Artisan Koksmaskin 4,8 L',
-        'cooking',
+        'mixer',
         5
       ),
       associateWithCategory(
@@ -117,8 +117,32 @@ module.exports = {
         'ipad',
         2
       ),
+      associateWithCategory(
+        queryInterface,
+        'Playstation 4',
+        'playstation',
+        3
+      ),
+      associateWithCategory(
+        queryInterface,
+        'Rymdraket',
+        'rocket',
+        3
+      ),
+      associateWithCategory(
+        queryInterface,
+        'Shiseido Future Solution LX Concentrated Balancing Softener',
+        'lotion',
+        5
+      ),
+      associateWithCategory(
+        queryInterface,
+        'Apple Watch 42inch LTE',
+        'applewatch',
+        1
+      ),
     ]).then(promises => queryInterface.bulkInsert('CanonicalItems', promises, {})),
-
+  //
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('CanonicalItems', null, {}),
 };
 
@@ -129,7 +153,11 @@ function associateWithCategory(
   categoryId
 ) {
   return queryInterface
-    .rawSelect('Categories', { where: { categoryId } }, ['categoryId'])
+    .rawSelect('Categories', {
+      where: {
+        categoryId
+      }
+    }, ['categoryId'])
     .then((categoryId) => {
       const date = new Date();
       console.log('[Associating CanonicalItems] with category', categoryId);
